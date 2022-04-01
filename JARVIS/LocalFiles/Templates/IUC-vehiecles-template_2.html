@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <h1>IUC - Mês de {{MonthNameOfSearch}}</h1>
+
+    <table class="iuc-table">
+        <tbody>
+            <tr>
+                <th class="iuc-top-label-entity" colspan="2">
+                    Entidade
+                </th>
+                <th class="iuc-top-label-contacts">
+                    Contactos
+                </th>
+                <th class="iuc-top-label-vehicles" colspan="2">
+                    Veículos
+                </th>
+            </tr>
+
+            {{#SearchResults}}
+
+            <tr>
+                <td colspan="3">
+                    <table class="info-table">
+                        <tr>
+                            <td>
+                                <table class="sub-info-table">
+                                    <tr>
+                                        <td>
+                                            Nome:
+                                        </td>
+                                        <td class="iuc-main-name-tag">
+                                            {{Name}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            NIF:
+                                        </td>
+                                        <td class="iuc-main-number-tag">
+                                            {{FiscalNumber}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Etiquetas:
+                                        </td>
+
+                                        {{#CustomerGroup}}
+
+                                        <td class="iuc-main-words-tag">
+                                            {{Name}}
+                                        </td>
+
+                                        {{/CustomerGroup}}
+
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td>
+
+                                {{#Contacts}}
+
+                                <table class="sub-info-table">>
+                                    <tr>
+                                        <td class="iuc-main-contact-tag">
+                                            {{ContactTypeDescription}} -
+                                        </td>
+                                        <td class="iuc-main-contact-tag">
+                                            {{ContactValue}}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                {{/Contacts}}
+
+                            </td>
+
+                            <td>
+
+                                {{#Vehiecles}}
+
+                                <table>
+                                    <tr>
+                                        <td class="iuc-vehicles-main-tag">
+                                            {{Brand}} , 
+                                        </td>
+                                        <td class="iuc-vehicles-other-tag">
+                                            {{LicensePlate}}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                {{/Vehiecles}}
+
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="dotted-divisor" colspan="3">
+                    <div class="dotted-divisor"/>
+                </td>
+            </tr>
+
+            {{/SearchResults}}
+
+        </tbody>
+    </table>
+
+
+    <style>
+
+        .iuc-title {
+            margin: 35px auto;
+            text-align: center;
+        }
+
+        .iuc-table {
+            height: 200px;
+            margin: 30px auto;
+            width: 900px;
+        }
+
+        .info-table {
+            border-inline: 2px solid darkgray;
+            border: 2px solid gray;
+            width: auto;
+            height: auto;
+        }
+
+        .sub-info-table {
+            border-right: 2px dashed darkgray
+        }
+
+        .separator {
+            border-bottom: 3px dashed ridge gray
+        }
+
+        .iuc-top-label-entity, .iuc-top-label-contacts,
+        .iuc-top-label-vehicles {
+            text-align: center;
+        }
+
+        .iuc-main-contact-tag, .iuc-vehicles-main-tag,
+        .iuc-vehicles-other-tag {
+            text-align: center;
+        }
+    </style>
+</body>
+</html>

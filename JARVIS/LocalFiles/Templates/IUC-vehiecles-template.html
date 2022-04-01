@@ -1,0 +1,341 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <h2>IUC - Mês de {{MonthNameOfSearch}}</h2>
+
+    <!--<div class="information-tables-box">
+        <table class="main-info-table">
+            <tbody>
+                <tr>
+                    <td id="client-name" class="info-data-label">Nome</td>
+                    <td class="info-data-label">NIF</td>
+                </tr>
+                {{#SearchResults}}
+                <tr>
+                    <td>
+                        <hr />
+                    </td>
+                    <td>
+                        <hr />
+                    </td>
+                    <td>
+                        <hr />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info-data-tag">{{Name}}</td>
+                    <td class="info-data-tag">{{FiscalNumber}}</td>
+                    <td class="info-data-tag">
+                        <div>
+                            {{#Contacts}}
+                            <table class="main-info-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="info-data-label">Tipo</td>
+                                        <td class="info-data-label">Contacto</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="info-data-tag">{{ContactTypeDescription}}</td>
+                                        <td class="info-data-tag">{{ContactValue}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{/Contacts}}
+                        </div>
+                    </td>
+                    <td class="info-data-tag">
+                        <div>
+                            {{#Vehiecles}}
+                            <table class="main-info-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="info-data-label">Marca</td>
+                                        <td class="info-data-label">Matrícula</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="info-data-tag">{{Brand}}</td>
+                                        <td class="info-data-tag">{{LicensePlate}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{/Vehiecles}}
+                        </div>
+                    </td>
+                </tr>
+                {{/SearchResults}}
+            </tbody>
+        </table>
+    </div>
+
+    <hr /> -->
+    
+    {{#SearchResults}}
+
+       <h2 class="category-title">Entidade</h2>
+
+       <div class="category-div">
+           <table class="info-table">
+               <tbody>
+                   <tr>
+                       <td id="client-name" class="info-data-label-left-align">Nome:</td>
+                       <td class="info-data-tag">{{Name}}</td>
+                       <td class="info-data-label-right-align">NIF:</td>
+                       <td class="info-data-tag">{{FiscalNumber}}</td>
+                   </tr>
+                   <tr>
+                       <td class="info-data-label-left-align">Tags:</td>
+                       <td class="info-data-label-left-align">N\A</td>
+                   </tr>
+               </tbody>
+           </table>
+       </div>
+
+       <h2 class="category-title">Contactos</h2>
+
+       <div class="category-div">
+
+           <table class="info-table">
+               <tbody>
+                   <tr>
+                       <td class="info-data-label-center-align">Tipo</td>
+                       <td class="info-data-label-center-align">Contacto</td>
+                   </tr>
+                   {{#Contacts}}
+                   <tr>
+                       <td class="info-data-tag">{{ContactTypeDescription}}</td>
+                       <td class="info-data-tag">{{ContactValue}}</td>
+                   </tr>
+                   {{/Contacts}}
+               </tbody>
+           </table>
+       </div>
+
+       <h2 class="category-title">Veículos</h2>
+
+       <div class="category-div">
+
+           <table class="info-table">
+               <tbody>
+                   <tr>
+                       <td class="info-data-label-center-align">Marca</td>
+                       <td class="info-data-label-center-align">Matrícula</td>
+                       <td class="info-data-label-center-align">Data de Matrícula</td>
+                   </tr>
+                   {{#Vehiecles}}
+                   <tr>
+                       <td class="info-data-tag">{{Brand}}</td>
+                       <td class="info-data-tag">{{LicensePlate}}</td>
+                   </tr>
+                   {{/Vehiecles}}
+           </table>
+
+       </div>
+
+       <hr />
+
+    {{/SearchResults}}
+
+</body>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-size: 13px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+
+    .information-title {
+        font-size: 17px;
+        margin: 20px 0px;
+        text-align: center;
+    }
+
+    .information-tables-box {
+        display: flex;
+        margin: 15px auto;
+        width: 850px;
+    }
+
+    .main-info-table {
+        margin: 10px 25px 10px 10px;
+        padding: 10px;
+        width: 425px;
+    }
+
+    #client-name {
+        font-weight: 1000;
+        white-space: nowrap;
+    }
+
+    .info-data-label {
+        text-align: center;
+        padding: 5px;
+        width: auto;
+    }
+
+    .info-data-tag {
+        padding: 5px;
+        width: auto;
+        text-align: center;
+    }
+
+    .other-info-table {
+        margin: 10px 25px 10px 10px;
+        padding: 10px;
+        width: 425px;
+    }
+
+    .other-info-data-label {
+        text-align: right;
+        padding: 5px;
+        width: 110px;
+    }
+
+    .other-info-data-tag {
+        padding: 5px;
+    }
+
+    .address-contact-box {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .address-title {
+        font-size: 15px;
+        margin: 20px 0px;
+        text-align: center;
+    }
+
+    .address-tables-box {
+        margin-top: 15px;
+        width: 490px;
+    }
+
+    .address-main-table {
+        margin: 10px;
+        padding: 5px;
+        width: 475px;
+    }
+
+    .address-data-label {
+        padding: 5px;
+        width: 140px;
+    }
+
+    .address-data-tag {
+        padding: 5px;
+    }
+
+    .address-info-table {
+        margin: 10px;
+        padding: 5px;
+        width: 475px;
+    }
+
+    .other-address-data-label {
+        padding: 5px;
+        width: 140px;
+    }
+
+    .other-address-data-tag {
+        padding: 5px;
+    }
+
+    .contacts-box {
+        margin-top: 15px;
+        width: 390px;
+    }
+
+    .contacts-title {
+        font-size: 15px;
+        margin: 20px 0px;
+        text-align: center;
+    }
+
+    .contacts-table {
+        margin: 10px auto;
+        padding: 10px;
+        width: 350px;
+    }
+
+    .contacts-label {
+        font-weight: 900;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .contacts-tag {
+        text-align: center;
+        padding: 5px;
+    }
+
+    .vehicles-title {
+        font-size: 15px;
+        margin: 30px 0px;
+        text-align: center;
+    }
+
+    .vehicles-table {
+        margin: 5px auto;
+        padding: 5px;
+        width: 825px;
+    }
+
+    .vehicles-main-label {
+        font-weight: 900;
+        margin: 5px;
+        padding: 10px;
+        text-align: center;
+        width: 100px;
+    }
+
+    .vehicles-main-tag {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .estate-title {
+        font-size: 15px;
+        margin: 40px 0px 20px 0px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .estate-table {
+        margin: 5px auto;
+        padding: 5px;
+        width: 800px;
+    }
+
+    .estate-label {
+        font-weight: 900;
+        margin: 10px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .estate-tag {
+        margin: 10px;
+        padding: 5px;
+        text-align: left;
+    }
+
+    .footer-notes-title {
+        font-size: 13px;
+        font-weight: 900;
+        margin: 10px;
+    }
+
+    .footer-notes {
+        padding: 10px;
+        text-align: left;
+    }
+</style>
+
+</html>

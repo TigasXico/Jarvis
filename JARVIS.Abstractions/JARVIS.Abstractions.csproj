@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8AC3F640-6B3D-49DA-9318-AA58C89870CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JARVIS.Abstractions</RootNamespace>
+    <AssemblyName>JARVIS.Abstractions</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\DataAccess\Database\JarvisContext.cs" />
+    <Compile Include="Data\DataAccess\Repositories\ClientRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\CompanyRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\ContactsRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\RealEstateRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\Repository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\VehiecleRepository.cs" />
+    <Compile Include="Data\DataModels\BaseDataModel.cs" />
+    <Compile Include="Data\DataModels\ClientDataModel.cs" />
+    <Compile Include="Data\DataModels\CompanyDataModel.cs" />
+    <Compile Include="Data\DataModels\ContactDataModel.cs" />
+    <Compile Include="Data\DataModels\FiscalEntityDataModel.cs" />
+    <Compile Include="Data\DataModels\RealEstateDataModel.cs" />
+    <Compile Include="Data\DataModels\TagDataModel.cs" />
+    <Compile Include="Data\DataModels\VehiecleDataModel.cs" />
+    <Compile Include="Migrations\202012092324506_InitialMigration.cs" />
+    <Compile Include="Migrations\202012092324506_InitialMigration.Designer.cs">
+      <DependentUpon>202012092324506_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012160015473_CascadeDeleteOfFiscalEntity.cs" />
+    <Compile Include="Migrations\202012160015473_CascadeDeleteOfFiscalEntity.Designer.cs">
+      <DependentUpon>202012160015473_CascadeDeleteOfFiscalEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012161402441_UpdatedBirthDateFuncionality.cs" />
+    <Compile Include="Migrations\202012161402441_UpdatedBirthDateFuncionality.Designer.cs">
+      <DependentUpon>202012161402441_UpdatedBirthDateFuncionality.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012222155007_FixedInitialValueTypoOnRealEstates.cs" />
+    <Compile Include="Migrations\202012222155007_FixedInitialValueTypoOnRealEstates.Designer.cs">
+      <DependentUpon>202012222155007_FixedInitialValueTypoOnRealEstates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ClientScreen.xaml.cs">
+      <DependentUpon>ClientScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\CompanyScreen.xaml.cs">
+      <DependentUpon>CompanyScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\CSVImportResultScreen.xaml.cs">
+      <DependentUpon>CSVImportResultScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\EntityTabScreen.xaml.cs">
+      <DependentUpon>EntityTabScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\FiscalEntityScreen.xaml.cs">
+      <DependentUpon>FiscalEntityScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\IucMonthSelectionScreen.xaml.cs">
+      <DependentUpon>IucMonthSelectionScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\NewFiscalEntityScreen.xaml.cs">
+      <DependentUpon>NewFiscalEntityScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SearchScreen.xaml.cs">
+      <DependentUpon>SearchScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SelectionGridScreen.xaml.cs">
+      <DependentUpon>SelectionGridScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\UpdateEntitiesScreen.xaml.cs">
+      <DependentUpon>UpdateEntitiesScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\WindowService.cs" />
+    <Compile Include="Utils\Controls\ControlButtons.xaml.cs">
+      <DependentUpon>ControlButtons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\CustomPasswordBox.xaml.cs">
+      <DependentUpon>CustomPasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\LabelledTextBox.xaml.cs">
+      <DependentUpon>LabelledTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\HelperClasses\AutoMapper.cs" />
+    <Compile Include="Utils\HelperClasses\PropertyChangedRaiser.cs" />
+    <Compile Include="Utils\HelperClasses\StringUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\Contract\" />
+    <Folder Include="Controllers\ModelControler\" />
+    <Folder Include="Controllers\ScreenControler\" />
+    <Folder Include="Data\Contract\" />
+    <Folder Include="Data\DataAccess\WebScraping\Parsers\" />
+    <Folder Include="Data\DataAccess\WebScraping\WebNavigator\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012092324506_InitialMigration.resx">
+      <DependentUpon>202012092324506_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012160015473_CascadeDeleteOfFiscalEntity.resx">
+      <DependentUpon>202012160015473_CascadeDeleteOfFiscalEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161402441_UpdatedBirthDateFuncionality.resx">
+      <DependentUpon>202012161402441_UpdatedBirthDateFuncionality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012222155007_FixedInitialValueTypoOnRealEstates.resx">
+      <DependentUpon>202012222155007_FixedInitialValueTypoOnRealEstates.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="Screens\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Screens\ClientScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\CompanyScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\CSVImportResultScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\EntityTabScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\FiscalEntityScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\IucMonthSelectionScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\NewFiscalEntityScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SearchScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SelectionGridScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\UpdateEntitiesScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\ControlButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\CustomPasswordBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\LabelledTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

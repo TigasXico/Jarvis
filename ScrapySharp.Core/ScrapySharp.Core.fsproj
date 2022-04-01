@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
+    <PackageReference Include="FSharp.Core" Version="6.0.3" />
+    <PackageReference Include="log4net" Version="2.0.14" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models.fs" />
+    <Compile Include="NavigationProvider.fs" />
+    <Compile Include="CssSelectorTokenizer.fs" />
+    <Compile Include="CssSelectorExecutor.fs" />
+  </ItemGroup>
+</Project>

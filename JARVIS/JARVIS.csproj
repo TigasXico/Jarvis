@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4CE074A4-B98E-47CA-9F8A-4A4808BACE7A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Jarvis</RootNamespace>
+    <AssemblyName>Jarvis</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\tfrancisco\Desktop\Jarvis Deployment\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>356C7C95B2552EE96D4B2277F23187295237E2B5</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>JARVIS_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=6.4.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework6.Npgsql.6.4.3\lib\net461\EntityFramework6.Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSharp.Core.6.0.3\lib\netstandard2.0\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.42.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.42\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=4.1.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.1.3\lib\net461\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\ModelControllers\Factories\DataModelControllerFactory.cs" />
+    <Compile Include="Controllers\Contract\IUpdatableDataModelController.cs" />
+    <Compile Include="Controllers\ModelControllers\TransactionController.cs" />
+    <Compile Include="Controllers\ScreenControllers\NewTransactionScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\SelectAggregateScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\SelectCustomerGroupScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\SelectFromMultipleItemsScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\Factories\DataModelScreenControllerFactory.cs" />
+    <Compile Include="Controllers\ScreenControllers\TransactionHistoryScreenController.cs" />
+    <Compile Include="Data\Contract\Repositories\IAggregatesRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\IClientRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\ICompanyRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\IImiChargeNotesRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\IRealEstateRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\IRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\ITagsRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\ITransactionRepository.cs" />
+    <Compile Include="Data\Contract\Repositories\IUnitOfWork.cs" />
+    <Compile Include="Data\Contract\Repositories\IVehiecleRepository.cs" />
+    <Compile Include="Data\DataAccess\Database\JarvisContext.cs" />
+    <Compile Include="Data\DataAccess\Extractors\BasicInfoDataExtractor.cs" />
+    <Compile Include="Data\DataAccess\Extractors\ContactInfoExtractor.cs" />
+    <Compile Include="Data\DataAccess\Extractors\ImiChargeNotesInfoExtractor.cs" />
+    <Compile Include="Data\DataAccess\Extractors\RealEstateInfoExtractor.cs" />
+    <Compile Include="Data\DataAccess\Extractors\VehiecleInfoExtractor.cs" />
+    <Compile Include="Data\DataAccess\Parsing\ImiChargeNotesInfoParser.cs" />
+    <Compile Include="Data\DataAccess\Repositories\AggregatesRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\ClientRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\CompanyRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\ContactsRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\ImiChargeNotesRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\RealEstateRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\Repository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\CustomerGroupRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\TransactionRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\VehiecleRepository.cs" />
+    <Compile Include="Data\DataAccess\Repositories\UnitOfWork.cs" />
+    <Compile Include="Data\DataAccess\Scraping\FinancesWebScraperFactory.cs" />
+    <Compile Include="Data\DataAccess\Scraping\FinancesWebScraper.cs" />
+    <Compile Include="Data\DataAccess\Scraping\FiscalEntityWebScraper.cs" />
+    <Compile Include="Data\DataAccess\Scraping\WebScraperFactory.cs" />
+    <Compile Include="Controllers\ModelControllers\BaseDataModelController.cs" />
+    <Compile Include="Controllers\ModelControllers\ClientController.cs" />
+    <Compile Include="Controllers\ModelControllers\CompanyController.cs" />
+    <Compile Include="Controllers\ModelControllers\CSVImportHandler.cs" />
+    <Compile Include="Controllers\ModelControllers\FiscalEntityController.cs" />
+    <Compile Include="Controllers\ModelControllers\IucSearchHandler.cs" />
+    <Compile Include="Data\DataAccess\Parsing\ParsingUtils.cs" />
+    <Compile Include="Data\DataAccess\Parsing\ClientBasicInfoParser.cs" />
+    <Compile Include="Data\DataAccess\Parsing\CompanyBasicInfoParser.cs" />
+    <Compile Include="Data\DataAccess\Parsing\ContactInfoParser.cs" />
+    <Compile Include="Data\DataAccess\Parsing\RealEstateInfoParser.cs" />
+    <Compile Include="Data\DataAccess\Parsing\VehiecleInfoParser.cs" />
+    <Compile Include="Data\DataModels\AggregateDataModel.cs" />
+    <Compile Include="Data\DataModels\BaseDataModel.cs" />
+    <Compile Include="Data\DataModels\ClientDataModel.cs" />
+    <Compile Include="Data\DataModels\CompanyDataModel.cs" />
+    <Compile Include="Data\DataModels\ContactDataModel.cs" />
+    <Compile Include="Data\DataModels\FiscalEntityDataModel.cs" />
+    <Compile Include="Data\Contract\Repositories\IContactsRepository.cs" />
+    <Compile Include="Data\Contract\IDataModel.cs" />
+    <Compile Include="Data\Contract\IEditable.cs" />
+    <Compile Include="Data\DataModels\ImiChargeNotesDataModel.cs" />
+    <Compile Include="Data\DataModels\NamedDataModel.cs" />
+    <Compile Include="Data\DataModels\RealEstateDataModel.cs" />
+    <Compile Include="Data\DataModels\CustomerGroupDataModel.cs" />
+    <Compile Include="Data\DataModels\TranstactionDataModel.cs" />
+    <Compile Include="Data\DataModels\VehiecleDataModel.cs" />
+    <Compile Include="Controllers\Contract\IDismissable.cs" />
+    <Compile Include="Data\Contract\IDatabaseModel.cs" />
+    <Compile Include="Controllers\Contract\IDataModelScreenController.cs" />
+    <Compile Include="Controllers\Contract\IDataModelController.cs" />
+    <Compile Include="Data\Contract\IFiscalEntity.cs" />
+    <Compile Include="Data\Contract\ISelectable.cs" />
+    <Compile Include="Data\Contract\IWebScraper.cs" />
+    <Compile Include="Migrations\202012092324506_InitialMigration.cs" />
+    <Compile Include="Migrations\202012092324506_InitialMigration.designer.cs">
+      <DependentUpon>202012092324506_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012160015473_CascadeDeleteOfFiscalEntity.cs" />
+    <Compile Include="Migrations\202012160015473_CascadeDeleteOfFiscalEntity.designer.cs">
+      <DependentUpon>202012160015473_CascadeDeleteOfFiscalEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012161402441_UpdatedBirthDateFuncionality.cs" />
+    <Compile Include="Migrations\202012161402441_UpdatedBirthDateFuncionality.designer.cs">
+      <DependentUpon>202012161402441_UpdatedBirthDateFuncionality.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012222155007_FixedInitialValueTypoOnRealEstates.cs" />
+    <Compile Include="Migrations\202012222155007_FixedInitialValueTypoOnRealEstates.designer.cs">
+      <DependentUpon>202012222155007_FixedInitialValueTypoOnRealEstates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103070828438_AddedImiPaymentTable.cs" />
+    <Compile Include="Migrations\202103070828438_AddedImiPaymentTable.designer.cs">
+      <DependentUpon>202103070828438_AddedImiPaymentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103071921504_AddedFiscalEntityStatus.cs" />
+    <Compile Include="Migrations\202103071921504_AddedFiscalEntityStatus.designer.cs">
+      <DependentUpon>202103071921504_AddedFiscalEntityStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103091803173_RemovedtagsFromRealEstatesAndVehiecles.cs" />
+    <Compile Include="Migrations\202103091803173_RemovedtagsFromRealEstatesAndVehiecles.designer.cs">
+      <DependentUpon>202103091803173_RemovedtagsFromRealEstatesAndVehiecles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103141820256_AddedFamilyAggregatesToDatabase.cs" />
+    <Compile Include="Migrations\202103141820256_AddedFamilyAggregatesToDatabase.designer.cs">
+      <DependentUpon>202103141820256_AddedFamilyAggregatesToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103141842135_AddedAggregateForeignKeyToClient.cs" />
+    <Compile Include="Migrations\202103141842135_AddedAggregateForeignKeyToClient.designer.cs">
+      <DependentUpon>202103141842135_AddedAggregateForeignKeyToClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103171844074_ChangedAggregateNameToName.cs" />
+    <Compile Include="Migrations\202103171844074_ChangedAggregateNameToName.designer.cs">
+      <DependentUpon>202103171844074_ChangedAggregateNameToName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103292247432_ChangesTagsToCustomerGroup.cs" />
+    <Compile Include="Migrations\202103292247432_ChangesTagsToCustomerGroup.designer.cs">
+      <DependentUpon>202103292247432_ChangesTagsToCustomerGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104051537425_UpdatedCustomerGRoupWithInternalIdCount.cs" />
+    <Compile Include="Migrations\202104051537425_UpdatedCustomerGRoupWithInternalIdCount.designer.cs">
+      <DependentUpon>202104051537425_UpdatedCustomerGRoupWithInternalIdCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104051602091_UpdatedCustomerGroupIdCountingMechanism.cs" />
+    <Compile Include="Migrations\202104051602091_UpdatedCustomerGroupIdCountingMechanism.designer.cs">
+      <DependentUpon>202104051602091_UpdatedCustomerGroupIdCountingMechanism.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104152019159_addedSocialSecurityInfoAndTransactionsUpdate.cs" />
+    <Compile Include="Migrations\202104152019159_addedSocialSecurityInfoAndTransactionsUpdate.designer.cs">
+      <DependentUpon>202104152019159_addedSocialSecurityInfoAndTransactionsUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104161609381_AddedCurrentBalanceToFiscalEntity.cs" />
+    <Compile Include="Migrations\202104161609381_AddedCurrentBalanceToFiscalEntity.designer.cs">
+      <DependentUpon>202104161609381_AddedCurrentBalanceToFiscalEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105151618488_AddedImiChargeNotes.cs" />
+    <Compile Include="Migrations\202105151618488_AddedImiChargeNotes.designer.cs">
+      <DependentUpon>202105151618488_AddedImiChargeNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204011027516_ChangedDatesToNonNullableTypes.cs" />
+    <Compile Include="Migrations\202204011027516_ChangedDatesToNonNullableTypes.designer.cs">
+      <DependentUpon>202204011027516_ChangedDatesToNonNullableTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Controllers\ScreenControllers\EntitiesProcessingResultScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\IucMonthSelectionScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\NewFiscalEntityScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\BaseDataModelScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\ClientScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\CompanyScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\TabScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\FiscalEntityScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\MainWindowScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\SearchScreenController.cs" />
+    <Compile Include="Controllers\ScreenControllers\SelectionGridScreenController.cs" />
+    <Compile Include="Screens\AddTagScreen.xaml.cs">
+      <DependentUpon>AddTagScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Screens\EditTransactionScreen.xaml.cs">
+      <DependentUpon>EditTransactionScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\TransactionsHistoryScreen.xaml.cs">
+      <DependentUpon>TransactionsHistoryScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\UpdateAggregateScreen.xaml.cs">
+      <DependentUpon>UpdateAggregateScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\CSVImportResultScreen.xaml.cs">
+      <DependentUpon>CSVImportResultScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\IucMonthSelectionScreen.xaml.cs">
+      <DependentUpon>IucMonthSelectionScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\NewFiscalEntityScreen.xaml.cs">
+      <DependentUpon>NewFiscalEntityScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\FiscalEntityScreen.xaml.cs">
+      <DependentUpon>FiscalEntityScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\ClientScreen.xaml.cs">
+      <DependentUpon>ClientScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\CompanyScreen.xaml.cs">
+      <DependentUpon>CompanyScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\TabScreen.xaml.cs">
+      <DependentUpon>TabScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SearchScreen.xaml.cs">
+      <DependentUpon>SearchScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SelectionGridScreen.xaml.cs">
+      <DependentUpon>SelectionGridScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\SelectFromMultipleItemsScreen.xaml.cs">
+      <DependentUpon>SelectFromMultipleItemsScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\ControlButtons.xaml.cs">
+      <DependentUpon>ControlButtons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\CustomPasswordBox.xaml.cs">
+      <DependentUpon>CustomPasswordBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\LabelledTextBox.xaml.cs">
+      <DependentUpon>LabelledTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\HelperClasses\AutoMapper.cs" />
+    <Compile Include="Utils\HelperClasses\ModuleUtils.cs" />
+    <Compile Include="Utils\HelperClasses\PropertyChangedRaiser.cs" />
+    <Compile Include="Utils\HelperClasses\StringUtilities.cs" />
+    <Compile Include="Services\WindowService.cs" />
+    <ApplicationDefinition Include="Screens\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="LocalFiles\MainResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\AddTagScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\EditTransactionScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\TransactionsHistoryScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\UpdateAggregateScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\CSVImportResultScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\IucMonthSelectionScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\NewFiscalEntityScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\FiscalEntityScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\ClientScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\CompanyScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\TabScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SearchScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SelectionGridScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\SelectFromMultipleItemsScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\ControlButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\CustomPasswordBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utils\Controls\LabelledTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Migrations\202012092324506_InitialMigration.resx">
+      <DependentUpon>202012092324506_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012160015473_CascadeDeleteOfFiscalEntity.resx">
+      <DependentUpon>202012160015473_CascadeDeleteOfFiscalEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012161402441_UpdatedBirthDateFuncionality.resx">
+      <DependentUpon>202012161402441_UpdatedBirthDateFuncionality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012222155007_FixedInitialValueTypoOnRealEstates.resx">
+      <DependentUpon>202012222155007_FixedInitialValueTypoOnRealEstates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103070828438_AddedImiPaymentTable.resx">
+      <DependentUpon>202103070828438_AddedImiPaymentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103071921504_AddedFiscalEntityStatus.resx">
+      <DependentUpon>202103071921504_AddedFiscalEntityStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103091803173_RemovedtagsFromRealEstatesAndVehiecles.resx">
+      <DependentUpon>202103091803173_RemovedtagsFromRealEstatesAndVehiecles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103141820256_AddedFamilyAggregatesToDatabase.resx">
+      <DependentUpon>202103141820256_AddedFamilyAggregatesToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103141842135_AddedAggregateForeignKeyToClient.resx">
+      <DependentUpon>202103141842135_AddedAggregateForeignKeyToClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103171844074_ChangedAggregateNameToName.resx">
+      <DependentUpon>202103171844074_ChangedAggregateNameToName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103292247432_ChangesTagsToCustomerGroup.resx">
+      <DependentUpon>202103292247432_ChangesTagsToCustomerGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051537425_UpdatedCustomerGRoupWithInternalIdCount.resx">
+      <DependentUpon>202104051537425_UpdatedCustomerGRoupWithInternalIdCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051602091_UpdatedCustomerGroupIdCountingMechanism.resx">
+      <DependentUpon>202104051602091_UpdatedCustomerGroupIdCountingMechanism.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104152019159_addedSocialSecurityInfoAndTransactionsUpdate.resx">
+      <DependentUpon>202104152019159_addedSocialSecurityInfoAndTransactionsUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104161609381_AddedCurrentBalanceToFiscalEntity.resx">
+      <DependentUpon>202104161609381_AddedCurrentBalanceToFiscalEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105151618488_AddedImiChargeNotes.resx">
+      <DependentUpon>202105151618488_AddedImiChargeNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204011027516_ChangedDatesToNonNullableTypes.resx">
+      <DependentUpon>202204011027516_ChangedDatesToNonNullableTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LocalFiles\Icons\AddEntityIcon.png" />
+    <Resource Include="LocalFiles\Icons\DeleteEntityIcon.jpg" />
+    <Resource Include="LocalFiles\Icons\SaveEntityIcon.png" />
+    <Resource Include="LocalFiles\Icons\UpdateAndSaveEntityIcon.jpg" />
+    <Resource Include="LocalFiles\Icons\UpdateEntityIcon.png" />
+    <Resource Include="LocalFiles\Icons\PrintEntitySummaryIcon.png" />
+    <Resource Include="LocalFiles\Icons\SearchClientIconpng.png" />
+    <Resource Include="LocalFiles\Icons\SearchCompanyIcon.jpg" />
+    <Resource Include="LocalFiles\Icons\SearchEntityIcon.png" />
+    <Resource Include="LocalFiles\Icons\PrintIMIIcon.png" />
+    <Resource Include="LocalFiles\Icons\PrintIUCIcon.png" />
+    <Resource Include="LocalFiles\Icons\ImportFromCSVIcon.png" />
+    <Resource Include="LocalFiles\Icons\UpdateAndSaveMultipleEntitiesIcon.jpg" />
+    <Resource Include="LocalFiles\Icons\PrintWrongEntitiesIcon.png" />
+    <Resource Include="LocalFiles\Icons\AggregateUpdateIcon.png" />
+    <Content Include="LocalFiles\Templates\invalid-entities-template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalFiles\Templates\IUC-vehiecles-template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LocalFiles\Templates\aggregatesheet-template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScrapySharp\ScrapySharp.csproj">
+      <Project>{63a9edb9-02dc-4007-9ba7-e43e5f3ae9a7}</Project>
+      <Name>ScrapySharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/JARVIS/bin/Debug
+/JARVIS/obj
+/JARVIS.Abstractions/obj
+/JARVIS.TestFramework/bin
+/JARVIS.TestFramework/obj
+/obj
+/packages
+/ScrapySharp/bin/Debug/netstandard2.0
+/ScrapySharp/obj
+/ScrapySharp.Core/bin/Debug/netstandard2.0
+/ScrapySharp.Core/obj
+/WebScrappingTest/bin
+/WebScrappingTest/obj
+/~$RVIS Guide.docx
+/JARVIS Guide.docx

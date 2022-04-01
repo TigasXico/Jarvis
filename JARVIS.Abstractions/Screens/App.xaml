@@ -1,0 +1,49 @@
+﻿<Application x:Class="Jarvis.Screens.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:screenControllers="clr-namespace:Jarvis.ScreenControllers"
+			 xmlns:screens="clr-namespace:Jarvis.Screens"
+             StartupUri="MainWindow.xaml">
+
+	<Application.Resources>
+
+		<DataTemplate DataType="{x:Type screenControllers:TabScreenController}">
+			<screens:EntityTabScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:ClientScreenController}">
+			<screens:ClientScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:CompanyScreenController}">
+			<screens:CompanyScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:SelectionGridScreenController}">
+			<screens:SelectionGridScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:SearchScreenController}">
+			<screens:SearchScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:NewFiscalEntityScreenController}">
+			<screens:NewFiscalEntityScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:UpdateEntitiesScreenController}">
+			<screens:UpdateEntitiesScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:IucMonthSelectionScreenController}">
+			<screens:IucMonthSelectionScreen/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type screenControllers:EntitiesProcessingResultScreenController}">
+			<screens:CSVImportResultScreen/>
+		</DataTemplate>
+
+	</Application.Resources>
+
+</Application>
+

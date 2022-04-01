@@ -1,0 +1,149 @@
+<html>
+
+<head>
+    <title>Ficha de Agregado</title>
+</head>
+
+<body>
+
+    <hr />
+
+    <h1 class="title-div">Informação Geral do Agregado</h1>
+
+    <div class="aggregate-info-div">
+
+        {{#Aggregate}}
+
+        <table class="aggregate-info-table">
+            <tbody>
+                <tr>
+                    <td class="info-label">ID</td>
+                    <td class="info-label">Nome</td>
+                    <td class="info-label">Dependente?</td>
+                    <td class="info-label">N.I.F.</td>
+                    <td class="info-label">Pass. A.T.</td>
+                    <td class="info-label">N.I.S.S.</td>
+                    <td class="info-label">Pass. S.S.</td>
+                    <td class="info-label">Contactos</td>
+                </tr>
+
+                {{#Members}}
+
+                <tr>
+                    <td class="bottom-dashed-row" colspan="99"></td>
+                </tr>
+
+                <tr>
+                    <td class="info-field">{{CustomerGroupFullId}}</td>
+                    <td id="client-name" class="info-field">{{Name}}</td>
+                    <td class="info-field">{{IsDependent}}</td>
+                    <td class="info-field">{{FiscalNumber}}</td>
+                    <td class="info-field">{{FiscalPassword}}</td>
+                    <td class="info-field">{{SocialSecutiryNumber}}</td>
+                    <td class="info-field">{{SocialSecutiryPassword}}</td>
+                    <td>
+                        <table class="entity-contact-info-table">
+
+                            {{#Contacts}}
+
+                            <tr>
+                                <td class="info-field">
+                                    {{ContactType}} - {{ContactValue}}
+                                </td>
+                            </tr>
+
+                            {{/Contacts}}
+
+                        </table>
+                    </td>
+                </tr>
+
+                {{/Members}}
+
+            </tbody>
+
+        </table>
+
+        {{/Aggregate}}
+
+    </div>
+
+    <hr />
+
+    <div class="address-info-div">
+        <table class="address-info-table">
+            <tbody>
+                <tr>
+                    <td class="info-label">Morada Fiscal:</td>
+                    <td>{{FiscalAddress}}</td>
+                    <td class="info-label">Código Postal:</td>
+                    <td>{{FiscalAddressZipCode}}</td>
+                </tr>
+                <tr>
+                    <td class="info-label">Informação Adicional:</td>
+                    <td>{{FiscalAddressAdditionalInfo}} </td>
+                    <td class="info-label">Rep. Finanças:</td>
+                    <td>{{FinancialServicesRepartition}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-size: 13px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+
+    .title-div {
+        font-size: 17px;
+        margin: 20px 0px;
+        text-align: center;
+    }
+
+    .info-label {
+        text-align: center;
+        padding: 5px;
+        width: auto;
+    }
+
+    .info-field {
+        width: auto;
+        text-align: center;
+        border-right: 2px solid;
+        padding: 5px;
+        white-space: nowrap;
+    }
+
+    #client-name {
+        font-weight: 100;
+        text-align: left;
+        width: 50px;
+    }
+
+    .bottom-dashed-row {
+        border-bottom: 1px dashed lightgray;
+        padding: 5px;
+        column-span: all;
+    }
+
+    .address-info-div {
+        align-content: center;
+        align-self: center;
+        margin: auto;
+    }
+
+    .address-info-table {
+        margin: 10px;
+        padding: 5px;
+        width: 100%;
+        align-content: center;
+        align-self: center;
+        vertical-align: middle;
+    }
+</style>
+
+</html>

@@ -1,0 +1,272 @@
+﻿<Window x:Class="Jarvis.Screens.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		MinWidth="800"
+		MinHeight="600"
+        Title="J.A.R.V.I.S."  
+		WindowStartupLocation="CenterScreen"
+		WindowState="Maximized">
+
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/LocalFiles/MainResourceDictionary.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+
+	<Grid>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+
+		<!--#region Top contents -->
+
+		<ToolBarTray Grid.Row="0"
+					 IsLocked="True"
+					 Width="auto">
+			
+			<ToolBar Header="Gestão de Entidades" 
+					 Style="{StaticResource toolbarStyle}"
+					 ClipToBounds="True"
+					 BandIndex="0">
+
+				<Button ToolTip="Adicionar nova entidade através de número fiscal e password"
+						ToolBar.OverflowMode="Never"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding AddEntityCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/AddEntityIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Adicionar</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Salvar informação atualizada/fechar"
+						ToolBar.OverflowMode="Never"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding SaveEntityCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/SaveEntityIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Salvar</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Apagar entidade selecionada"
+						ToolBar.OverflowMode="Never"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding RemoveEntityCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/DeleteEntityIcon.jpg"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Apagar</TextBlock>
+					</StackPanel>
+				</Button>
+
+			</ToolBar>
+
+			<ToolBar Header="Op. de Entidades" 
+					 Style="{StaticResource toolbarStyle}"
+					 ClipToBounds="True"
+					 BandIndex="1">
+
+				<Button ToolTip="Pesquisar Entidade Fiscal"
+						ToolBar.OverflowMode="AsNeeded"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding SearchEntityCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/SearchEntityIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Pesquisar Entidade</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Pesquisar Entidade Fiscal considerada como Cliente"
+						ToolBar.OverflowMode="AsNeeded"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding SearchClientCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/SearchClientIconpng.png" 
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Pesquisar Cliente</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Pesquisar Entidade Fiscal considerada como Empresa"
+						ToolBar.OverflowMode="AsNeeded"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding SearchCompanyCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/SearchCompanyIcon.jpg" 
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Pesquisar Empresa</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Atualizar automáticamente informação da entidade selecionada"
+						ToolBar.OverflowMode="AsNeeded"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding UpdateSelectedEntityCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/UpdateAndSaveEntityIcon.jpg" 
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Atualizar Entidade</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Atualizar automáticamente informação da várias entidades a selecionar"
+						ToolBar.OverflowMode="Always"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding UpdateMultipleEntitiesCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/UpdateAndSaveMultipleEntitiesIcon.jpg" 
+							   Style="{StaticResource buttonIconStyle}" />
+						<TextBlock Style="{StaticResource toolbarButtonText}">Atualizar múltiplas Entidades</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Atualizar automáticamente informação da TODAS as entidades disponíveis"
+						ToolBar.OverflowMode="Always"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding UpdateAllEntitiesCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/UpdateAndSaveMultipleEntitiesIcon.jpg" 
+							   Style="{StaticResource buttonIconStyle}" />
+						<TextBlock Style="{StaticResource toolbarButtonText}">Atualizar TODAS as antidades</TextBlock>
+					</StackPanel>
+				</Button>
+
+			</ToolBar>
+
+			<ToolBar Header="Exportação" 
+					 Style="{StaticResource toolbarStyle}"
+					 ClipToBounds="True"
+					 BandIndex="2">
+
+				<Button ToolTip="Exportar ficha informativa do agregado da entidade selecionada"
+						ToolBar.OverflowMode="AsNeeded"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding PrintAggregateCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/PrintEntitySummaryIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Ficha de Agregado</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Exportar lista de entiades e respetivas viaturas para fins de IUC"
+						ToolBar.OverflowMode="Always"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding PrintIUCCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/PrintIUCIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">IUC</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Exportar lista de entiades e respetivas viaturas para fins de IMI"
+						ToolBar.OverflowMode="Always"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/PrintIMIIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">IMI</TextBlock>
+					</StackPanel>
+				</Button>
+
+				<Button ToolTip="Exportar lista de entiades com credendiais erradas"
+						ToolBar.OverflowMode="Always"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding PrintInvalidEntitiesCommand}">
+					<StackPanel Orientation="Horizontal">
+						<Image Source="/LocalFiles/Icons/PrintWrongEntitiesIcon.png"
+							   Style="{StaticResource buttonIconStyle}"/>
+						<TextBlock Style="{StaticResource toolbarButtonText}">Imprimir Entidades irregulares</TextBlock>
+					</StackPanel>
+				</Button>
+
+			</ToolBar>
+
+			<ToolBar Header="Importação" 
+					 Style="{StaticResource toolbarStyle}"
+					 ClipToBounds="True"
+					 BandIndex="3">
+
+				<Button ToolTip="Importar entidades atravéz de ficheiro CSV"
+						ToolBar.OverflowMode="AsNeeded"
+						Style="{StaticResource toolbarButtonStyle}"
+						Command="{Binding ImportFromCSV}">
+					
+					<StackPanel Orientation="Horizontal">
+						
+						<Image Source="/LocalFiles/Icons/ImportFromCSVIcon.png" 
+							   Style="{StaticResource buttonIconStyle}"/>
+						
+						<TextBlock Style="{StaticResource toolbarButtonText}">Importar CSV</TextBlock>
+						
+					</StackPanel>
+					
+				</Button>
+
+			</ToolBar>
+
+		</ToolBarTray>
+
+		<!--#endregion-->
+
+		<!--#region Center contents -->
+
+		<Grid Grid.Row="1">
+
+			<Border Background="LightGray"
+					Panel.ZIndex="1"
+					Visibility="{Binding Loading , Converter={StaticResource boolToVisibleConverter}, FallbackValue=Hidden}">
+
+				<ProgressBar IsIndeterminate="True"
+							 Width="500"
+							 Height="30" />
+
+			</Border>
+
+			<TabControl TabStripPlacement="Left"
+						ItemsSource="{Binding EntitiesBeingEdited}"
+						SelectedItem="{Binding CurrentTabScreenController , Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}">
+
+				<TabControl.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding TabName}" />
+					</DataTemplate>
+				</TabControl.ItemTemplate>
+
+				<TabControl.ContentTemplate>
+					<DataTemplate>
+						<ContentPresenter Content="{Binding .}" />
+					</DataTemplate>
+				</TabControl.ContentTemplate>
+
+			</TabControl>
+
+		</Grid>
+
+		<!--#endregion-->
+
+		<!--#region Bottom contents -->
+
+		<TextBlock Grid.Row="2"
+				   MinHeight="30"
+				   Text="{Binding ActionText, Mode=OneWay}"
+				   IsEnabled="True" />
+
+		<!--#endregion-->
+
+	</Grid>
+
+</Window>

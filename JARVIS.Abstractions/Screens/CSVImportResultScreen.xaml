@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Jarvis.Screens.CSVImportResultScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:controls="clr-namespace:Jarvis.Utils.Controls"
+			 MinWidth="250"
+			 MinHeight="350">
+    <Grid>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+
+		<DataGrid ItemsSource="{Binding EntitiesImportProcessingStatus , Mode=OneWay}"
+				  HorizontalScrollBarVisibility="Disabled"
+				  VerticalScrollBarVisibility="Auto"
+				  AutoGenerateColumns="False">
+			
+			<DataGrid.Columns>
+				<DataGridTextColumn Binding="{Binding FiscalNumber}" Header="NIF"/>
+				<DataGridTextColumn Binding="{Binding Name}" Header="Nome(se processado)"/>
+				<DataGridTextColumn Binding="{Binding WasSuccessfull}" Header="Importado?"/>
+			</DataGrid.Columns>
+			
+		</DataGrid>
+
+		<controls:ControlButtons Grid.Row="1" 
+								 Grid.Column="1"/>
+
+	</Grid>
+</UserControl>
