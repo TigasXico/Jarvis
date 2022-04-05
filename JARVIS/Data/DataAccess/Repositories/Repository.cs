@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-
-using Jarvis.DataAcess.Contract;
+using Jarvis.Data.Contract.Repositories;
 using Jarvis.Services;
 
-namespace Jarvis.DataAccess.Repositories
+namespace Jarvis.Data.DataAccess.Repositories
 {
     internal class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -88,7 +87,7 @@ namespace Jarvis.DataAccess.Repositories
 
         public void Remove( object id )
         {
-            TEntity entityToDelete = dbSet.Find( id );
+            var entityToDelete = dbSet.Find( id );
             Remove( entityToDelete );
         }
 
@@ -103,7 +102,12 @@ namespace Jarvis.DataAccess.Repositories
 
         public void RemoveEntities( IEnumerable<TEntity> entities )
         {
-            foreach ( TEntity entity in entities )
+            if (entities == null)
+            {
+                return;
+            }
+
+            foreach ( var entity in entities )
             {
                 if ( context.Entry( entity ).State == EntityState.Detached )
                 {

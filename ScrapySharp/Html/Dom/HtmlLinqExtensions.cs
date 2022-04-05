@@ -8,14 +8,14 @@ namespace ScrapySharp.Html.Dom
     {
         public static IEnumerable<HElement> Descendants(this HContainer container, string name)
         {
-            foreach ( HElement element in container.Elements(name))
+            foreach ( var element in container.Elements(name))
             {
                 yield return element;
             }
 
-            foreach ( HElement child in container.Children)
+            foreach ( var child in container.Children)
             {
-                foreach ( HElement element in child.Descendants(name))
+                foreach ( var element in child.Descendants(name))
                 {
                     yield return element;
                 }
@@ -24,14 +24,14 @@ namespace ScrapySharp.Html.Dom
         
         public static IEnumerable<HElement> Descendants(this HContainer container)
         {
-            foreach ( HElement element in container.Children)
+            foreach ( var element in container.Children)
             {
                 yield return element;
             }
 
-            foreach ( HElement child in container.Children)
+            foreach ( var child in container.Children)
             {
-                foreach ( HElement element in child.Descendants())
+                foreach ( var element in child.Descendants())
                 {
                     yield return element;
                 }

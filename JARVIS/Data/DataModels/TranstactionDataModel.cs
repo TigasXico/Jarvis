@@ -12,7 +12,7 @@ namespace Jarvis.Data.DataModels
         {
             get
             {
-                StringBuilder description = new StringBuilder();
+                var description = new StringBuilder();
                 description.AppendLine( $"Data: {Date.ToShortDateString()}" );
                 description.AppendLine( $"Serviço: {TransactionName}" );
                 description.AppendLine( $"Cobrado: {Amount} €" );

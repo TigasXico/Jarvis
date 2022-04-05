@@ -1,7 +1,7 @@
 ﻿
 using Jarvis.Data.DataModels;
 
-namespace Jarvis.DataAcess.Contract
+namespace Jarvis.Data.Contract.Repositories
 {
     public interface IRealEstateRepository : IRepository<RealEstateDataModel>
     {

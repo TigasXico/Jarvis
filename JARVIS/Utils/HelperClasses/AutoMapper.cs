@@ -7,17 +7,17 @@ namespace Jarvis.Utils.HelperClasses
     {
         public static T2 ConvertToDerived<T1, T2>( this T1 baseObj ) where T2 : new()
         {
-            T2 derivedObj = new T2();
-            PropertyInfo[] sourceProperties = baseObj.GetType().GetProperties();
-            PropertyInfo[] targetProperties = derivedObj.GetType().GetProperties();
+            var derivedObj = new T2();
+            var sourceProperties = baseObj.GetType().GetProperties();
+            var targetProperties = derivedObj.GetType().GetProperties();
 
-            foreach ( PropertyInfo baseProperty in sourceProperties )
+            foreach ( var baseProperty in sourceProperties )
             {
-                PropertyInfo targetProperty = targetProperties.SingleOrDefault( property => property.Name.Equals( baseProperty.Name ) );
+                var targetProperty = targetProperties.SingleOrDefault( property => property.Name.Equals( baseProperty.Name ) );
 
                 if ( targetProperty != default && baseProperty.CanRead && targetProperty.CanWrite )
                 {
-                    object val = baseProperty.GetValue( baseObj );
+                    var val = baseProperty.GetValue( baseObj );
 
                     if ( val != null )
                     {

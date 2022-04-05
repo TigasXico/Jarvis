@@ -44,7 +44,7 @@ namespace ScrapySharp.Extensions
 
         public static explicit operator bool?( HtmlValue htmlValue )
         {
-            if ( bool.TryParse( htmlValue.value , out bool result ) )
+            if ( bool.TryParse( htmlValue.value , out var result ) )
             {
                 return result;
             }
@@ -60,7 +60,7 @@ namespace ScrapySharp.Extensions
 
         public static explicit operator int?( HtmlValue htmlValue )
         {
-            if ( int.TryParse( htmlValue.value , out int result ) )
+            if ( int.TryParse( htmlValue.value , out var result ) )
             {
                 return result;
             }
@@ -79,7 +79,7 @@ namespace ScrapySharp.Extensions
         {
             if ( uint.TryParse( htmlValue.value , NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite
                     | NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent ,
-                    NumberFormatInfo.InvariantInfo , out uint result ) )
+                    NumberFormatInfo.InvariantInfo , out var result ) )
             {
                 return result;
             }
@@ -96,7 +96,7 @@ namespace ScrapySharp.Extensions
         public static explicit operator long?( HtmlValue htmlValue )
         {
             if ( long.TryParse( htmlValue.value , NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowLeadingSign
-                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out long result ) )
+                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out var result ) )
             {
                 return result;
             }
@@ -113,7 +113,7 @@ namespace ScrapySharp.Extensions
         public static explicit operator ulong?( HtmlValue htmlValue )
         {
             if ( ulong.TryParse( htmlValue.value , NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowLeadingSign
-                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out ulong result ) )
+                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out var result ) )
             {
                 return result;
             }
@@ -130,7 +130,7 @@ namespace ScrapySharp.Extensions
         public static explicit operator float?( HtmlValue htmlValue )
         {
             if ( float.TryParse( htmlValue.value , NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowLeadingSign
-                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out float result ) )
+                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out var result ) )
             {
                 return result;
             }
@@ -147,7 +147,7 @@ namespace ScrapySharp.Extensions
         public static explicit operator double?( HtmlValue htmlValue )
         {
             if ( double.TryParse( htmlValue.value , NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowLeadingSign
-                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out double result ) )
+                | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo , out var result ) )
             {
                 return result;
             }
@@ -162,7 +162,7 @@ namespace ScrapySharp.Extensions
 
         public static explicit operator decimal?( HtmlValue htmlValue )
         {
-            if ( decimal.TryParse( htmlValue.value , out decimal result ) )
+            if ( decimal.TryParse( htmlValue.value , out var result ) )
             {
                 return result;
             }
@@ -202,7 +202,7 @@ namespace ScrapySharp.Extensions
 
         public static explicit operator TimeSpan?( HtmlValue htmlValue )
         {
-            if ( TimeSpan.TryParse( htmlValue.value , out TimeSpan result ) )
+            if ( TimeSpan.TryParse( htmlValue.value , out var result ) )
             {
                 return result;
             }

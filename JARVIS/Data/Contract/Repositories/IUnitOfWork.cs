@@ -1,8 +1,6 @@
 ﻿using System;
 
-using Jarvis.Data.Contract.Repositories;
-
-namespace Jarvis.DataAcess.Contract
+namespace Jarvis.Data.Contract.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,14 +1,11 @@
-﻿using HtmlAgilityPack;
-
+﻿using System;
+using System.Linq;
+using HtmlAgilityPack;
 using Jarvis.Data.DataModels;
 using Jarvis.Services;
-
 using ScrapySharp.Extensions;
 
-using System;
-using System.Linq;
-
-namespace Jarvis.DataAccess.Parsers
+namespace Jarvis.Data.DataAccess.Parsing
 {
     public static class ClientBasicInfoParser 
     {
@@ -16,17 +13,21 @@ namespace Jarvis.DataAccess.Parsers
         {
             try
             {
-
-                HtmlNode[] allFieldValues = clientInfoAsHtml.CssSelect( ".fieldValue" ).ToArray();
+                var allFieldValues = clientInfoAsHtml.CssSelect( "dd" ).ToArray();
 
                 client.Name = ParsingUtils.GetFieldValueClean( allFieldValues , 1 );
                 client.BirthDate = ParsingUtils.GetFieldValueClean( allFieldValues , 2 );
                 client.Gender = ParsingUtils.GetFieldValueClean( allFieldValues , 3 );
                 client.Nationality = ParsingUtils.GetFieldValueClean( allFieldValues , 8 );
-                client.FiscalAddress = ParsingUtils.GetFieldValueClean( allFieldValues , 9 );
-                client.FiscalAddressAdditionalInfo = ParsingUtils.GetFieldValueClean( allFieldValues , 10 );
-                client.FiscalAddressZipCode = ParsingUtils.GetFieldValueClean( allFieldValues , 11 );
-                client.FinancialServicesRepartition = ParsingUtils.GetFieldValueClean( allFieldValues , 16 );
+                client.FinancialServicesRepartition = ParsingUtils.GetFieldValueClean(allFieldValues, 9);
+                client.FiscalAddress = ParsingUtils.GetFieldValueClean( allFieldValues , 14 );
+                client.FiscalAddressZipCode = ParsingUtils.GetFieldValueClean( allFieldValues , 16 );
+
+                var locality = ParsingUtils.GetFieldValueClean(allFieldValues, 19);
+                var council = ParsingUtils.GetFieldValueClean(allFieldValues, 18);
+                var district = ParsingUtils.GetFieldValueClean(allFieldValues, 17);
+
+                client.FiscalAddressAdditionalInfo = $"{locality} , {council} - {district}";
 
                 return true;
             }

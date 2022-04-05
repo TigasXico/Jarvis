@@ -42,7 +42,7 @@ namespace Jarvis.Data.DataModels
             set
             {
                 SetProperty( ref fullArticle , value );
-                string[] splittedArticle = fullArticle.Split( '-' );
+                var splittedArticle = fullArticle.Split( '-' );
                 if ( splittedArticle.Length == 3 )
                 {
                     Type = splittedArticle[0];
@@ -103,7 +103,7 @@ namespace Jarvis.Data.DataModels
 
         public override string ToString()
         {
-            StringBuilder description = new StringBuilder();
+            var description = new StringBuilder();
             description.AppendLine( $"Artigo completo: {FullArticle}" );
             description.AppendLine( $"Localização: {Location}" );
             description.AppendLine( $"Parte: {Part}" );

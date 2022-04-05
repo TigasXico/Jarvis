@@ -1,13 +1,11 @@
 ﻿using System;
-
 using HtmlAgilityPack;
-
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
-
 using ScrapySharp.Network;
 
-namespace Jarvis.DataAccess.WebScraping
+namespace Jarvis.Data.DataAccess.Scraping
 {
     public abstract class FiscalEntityWebScraper : IWebScraper<FiscalEntityDataModel>
     {

@@ -2,13 +2,12 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
-
+using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Repositories;
-using Jarvis.DataAcess.Contract;
 using Jarvis.Services;
 
-namespace Jarvis.DataHandlers.Handlers
+namespace Jarvis.Controllers.ModelControllers
 {
     public class IucSearchHandler
     {
@@ -40,7 +39,7 @@ namespace Jarvis.DataHandlers.Handlers
                 worker?.ReportProgress( 0 , "A obter IUC's para o mês selecionado" );
 
                 //make search
-                IEnumerable<IGrouping<FiscalEntityDataModel , VehiecleDataModel>> queryResults = unitOfWork.Vehiecles.GetVehieclesWithPlateOnMonthForIUC( MonthNumberOfSearch );
+                var queryResults = unitOfWork.Vehiecles.GetVehieclesWithPlateOnMonthForIUC( MonthNumberOfSearch );
 
                 if ( queryResults.Count() > 0 )
                 {

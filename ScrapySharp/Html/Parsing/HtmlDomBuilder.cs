@@ -15,16 +15,16 @@ namespace ScrapySharp.Html.Parsing
 
             while (!reader.End)
             {
-                TagDeclaration d = reader.ReadTagDeclaration();
+                var d = reader.ReadTagDeclaration();
                 tags.Add(d);
             }
         }
 
         public IEnumerable<HElement> BuildDom(List<TagDeclaration> declarations, HElement parent)
         {
-            for ( int i = 0; i < declarations.Count; i++)
+            for ( var i = 0; i < declarations.Count; i++)
             {
-                TagDeclaration declaration = declarations[i];
+                var declaration = declarations[i];
 
                 if (declaration.Type == DeclarationType.Comment)
                 {
@@ -37,9 +37,9 @@ namespace ScrapySharp.Html.Parsing
 
                 if (declaration.Type == DeclarationType.OpenTag)
                 {
-                    int openning = 1;
-                    int closing = 0;
-                    int start = i;
+                    var openning = 1;
+                    var closing = 0;
+                    var start = i;
 
                     while (closing < openning && i < declarations.Count)
                     {
@@ -48,7 +48,7 @@ namespace ScrapySharp.Html.Parsing
                             break;
                         }
 
-                        TagDeclaration current = declarations[++i];
+                        var current = declarations[++i];
                         if (current.Type == DeclarationType.CloseTag && current.Name == declaration.Name)
                         {
                             closing++;
@@ -61,16 +61,16 @@ namespace ScrapySharp.Html.Parsing
 
                         if (openning == closing)
                         {
-                            List<TagDeclaration> childrenTags = declarations.Skip(start+1).Take(i - start - 1).ToList();
+                            var childrenTags = declarations.Skip(start+1).Take(i - start - 1).ToList();
 
-                            HElement element = new HElement
+                            var element = new HElement
                             {
                                 Name = declaration.Name,
                                 Attributes = declaration.Attributes,
                                 InnerText = declaration.InnerText,
                                 ParentNode = parent
                             };
-                            List<HElement> children = declarations.Count > childrenTags.Count ? BuildDom(childrenTags, element).ToList() : new List<HElement>();
+                            var children = declarations.Count > childrenTags.Count ? BuildDom(childrenTags, element).ToList() : new List<HElement>();
 
                             element.Children = children;
 
@@ -81,7 +81,7 @@ namespace ScrapySharp.Html.Parsing
 
                     if (openning != closing)
                     {
-                        List<TagDeclaration> childrenTags = declarations.Skip(start + 1).Take(i - start - 1).ToList();
+                        var childrenTags = declarations.Skip(start + 1).Take(i - start - 1).ToList();
 
                         yield return new HElement
                         {

@@ -5,15 +5,13 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Windows.Data;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Controllers.ScreenControllers;
+using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
 using Jarvis.Data.DataAccess.Extractors;
+using Jarvis.Data.DataAccess.Scraping;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Repositories;
-using Jarvis.DataAccess.WebScrapping;
-using Jarvis.DataAcess.Contract;
-using Jarvis.DataHandlers.Handlers;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 using Jarvis.Utils.HelperClasses;
 
@@ -140,16 +138,16 @@ namespace Jarvis.Controllers.ModelControllers
                 return false;
             }
 
-            long[] fiscalNumberAsNumberArray = fiscalNumber.ToCharArray().Select( c => Convert.ToInt64( c.ToString() ) ).ToArray();
+            var fiscalNumberAsNumberArray = fiscalNumber.ToCharArray().Select( c => Convert.ToInt64( c.ToString() ) ).ToArray();
 
             long sumNumber = 0;
 
-            for ( int i = 0 ; i < fiscalNumber.Length - 1 ; i++ )
+            for ( var i = 0 ; i < fiscalNumber.Length - 1 ; i++ )
             {
                 sumNumber += (fiscalNumberAsNumberArray[i] * (9 - i));
             }
 
-            long controlSum = (sumNumber % 11);
+            var controlSum = (sumNumber % 11);
 
 
             if ( controlSum == 0 || controlSum == 1 )
@@ -172,7 +170,7 @@ namespace Jarvis.Controllers.ModelControllers
                 return false;
             }
 
-            bool result = false;
+            var result = false;
 
             switch ( targetType )
             {
@@ -225,7 +223,7 @@ namespace Jarvis.Controllers.ModelControllers
         public static bool GetCustomerGroupSelection( IEnumerable<CustomerGroupDataModel> existingCustomerGroups , out CustomerGroupDataModel selectedCustomerGroup )
         {
             //Open window to update customer group
-            SelectCustomerGroupScreenController screenController =
+            var screenController =
                 new SelectCustomerGroupScreenController( existingCustomerGroups )
                 {
                     DisplayControlButtons = true ,
@@ -295,6 +293,11 @@ namespace Jarvis.Controllers.ModelControllers
             {
                 Model.RealEstates = new ObservableCollection<RealEstateDataModel>();
             }
+
+            if (Model.ImiChargeNotes == null)
+            {
+                Model.ImiChargeNotes = new ObservableCollection<ImiChargeNotesDataModel>();
+            }
         }
 
         protected void PrepareCollectionsForUpdate()
@@ -304,6 +307,7 @@ namespace Jarvis.Controllers.ModelControllers
             BindingOperations.EnableCollectionSynchronization( Model.Contacts , Model.updatingCollectionsLock );
             BindingOperations.EnableCollectionSynchronization( Model.Vehiecles , Model.updatingCollectionsLock );
             BindingOperations.EnableCollectionSynchronization( Model.RealEstates , Model.updatingCollectionsLock );
+            BindingOperations.EnableCollectionSynchronization( Model.ImiChargeNotes, Model.updatingCollectionsLock);
         }
 
         public override OperationResult UpdateEntityInfo( bool isSilentUpdate = false )
@@ -326,7 +330,7 @@ namespace Jarvis.Controllers.ModelControllers
                 Worker?.ReportProgress( -1 , $"A atualizar entidade com o nº fiscal {Model.FiscalNumber}" );
             }
 
-            OperationResult updateResult = OperationResult.Default;
+            var updateResult = OperationResult.Default;
 
             if ( !financesWebScraper.IsLoggedIn )
             {
@@ -362,8 +366,6 @@ namespace Jarvis.Controllers.ModelControllers
             if ( updateResult == OperationResult.Success )
             {
                 UnitOfWork.ImiChargeNotes.RemoveEntities( Model.ImiChargeNotes);
-
-                Model.ImiChargeNotes.Clear();
 
                 updateResult = ImiChargeNotesInfoExtractor.GetData( Model , financesWebScraper );
             }

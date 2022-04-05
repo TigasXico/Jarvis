@@ -47,7 +47,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static DateTime ToDate(this string value, string format, CultureInfo cultureInfo)
         {
-            if ( DateTime.TryParseExact( value , format , cultureInfo , DateTimeStyles.None , out DateTime result ) )
+            if ( DateTime.TryParseExact( value , format , cultureInfo , DateTimeStyles.None , out var result ) )
             {
                 return result;
             }
@@ -73,7 +73,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static HtmlNode ToHtmlNode(this string content)
         {
-            HtmlDocument document = new HtmlDocument();
+            var document = new HtmlDocument();
             document.LoadHtml(content);
 
             return document.DocumentNode;
@@ -86,17 +86,17 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static HtmlNode ToHtmlNode(this WebResponse response)
         {
-            HtmlDocument document = new HtmlDocument();
+            var document = new HtmlDocument();
             string html;
 
-            Stream responseStream = response.GetResponseStream();
+            var responseStream = response.GetResponseStream();
             if (responseStream == null)
             {
                 html = string.Empty;
             }
             else
             {
-                using ( StreamReader reader = new StreamReader(responseStream))
+                using ( var reader = new StreamReader(responseStream))
                 {
                     html = reader.ReadToEnd();
                 }
@@ -126,14 +126,14 @@ namespace ScrapySharp.Extensions
         {
             string html;
 
-            Stream responseStream = response.GetResponseStream();
+            var responseStream = response.GetResponseStream();
             if (responseStream == null)
             {
                 html = string.Empty;
             }
             else
             {
-                using ( StreamReader reader = new StreamReader(responseStream))
+                using ( var reader = new StreamReader(responseStream))
                 {
                     html = reader.ReadToEnd();
                 }
@@ -150,7 +150,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static HtmlNode GetNextSibling(this HtmlNode node, string name)
         {
-            HtmlNode currentNode = node.NextSibling;
+            var currentNode = node.NextSibling;
 
             while (currentNode.NextSibling != null && currentNode.Name != name)
             {
@@ -169,7 +169,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static HtmlValue GetNextTableCellValue(this HtmlNode node, string name)
         {
-            IEnumerable<HtmlNode> results = GetNodesFollowedByValue(node, "td", name, NodeValueComparison.Equals);
+            var results = GetNodesFollowedByValue(node, "td", name, NodeValueComparison.Equals);
             if (!results.Any())
             {
                 return null;
@@ -193,7 +193,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static HtmlValue GetNextTableCellValue(this HtmlNode node, string name, NodeValueComparison comparison/* = NodeValueComparison.Equals*/)
         {
-            IEnumerable<HtmlNode> results = GetNodesFollowedByValue(node, "td", name, comparison);
+            var results = GetNodesFollowedByValue(node, "td", name, comparison);
             if (!results.Any())
             {
                 return null;
@@ -218,7 +218,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static IEnumerable<HtmlNode> GetNodesFollowedByValue(this HtmlNode node, string name, string value, NodeValueComparison comparison = NodeValueComparison.Equals)
         {
-            NodeValueComparer comparer = new NodeValueComparer(comparison);
+            var comparer = new NodeValueComparer(comparison);
             string cleanName = value.CleanInnerText();
             return (from d in node.Descendants(name)
                     where comparer.Compare(d.InnerText.CleanInnerHtmlAscii().CleanInnerText(), cleanName)
@@ -247,7 +247,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static HtmlValue GetNextTableLineValue(this HtmlNode node, string name, NodeValueComparison comparison = NodeValueComparison.Equals)
         {
-            IEnumerable<HtmlNode> results = GetNodesFollowedByValue(node, "tr", name, comparison);
+            var results = GetNodesFollowedByValue(node, "tr", name, comparison);
             if (!results.Any())
             {
                 return null;
@@ -272,7 +272,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static string CleanInnerHtmlAscii(this string expression)
         {
-            string cleaned = expression.Replace("=C3=B4", "ô");
+            var cleaned = expression.Replace("=C3=B4", "ô");
             cleaned = asciiRegex.Replace(cleaned, " ");
 
             return cleaned;
@@ -286,7 +286,7 @@ namespace ScrapySharp.Extensions
         /// <returns></returns>
         public static string CleanInnerText(this string expression)
         {
-            string cleaned = expression.Replace('\t', ' ').Replace('\r', ' ')
+            var cleaned = expression.Replace('\t', ' ').Replace('\r', ' ')
                 .Replace('\n', ' ');
 
             cleaned = WebUtility.HtmlDecode(cleaned);

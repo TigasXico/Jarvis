@@ -23,7 +23,7 @@ namespace Jarvis.Utils.Controls
             InitializeComponent();
             passwordBox.PasswordChanged += PasswordBox_PasswordChanged;
             passwordTextBox.TextChanged += PasswordTextBox_TextChanged;
-            DependencyPropertyDescriptor dpd = DependencyPropertyDescriptor.FromProperty( PasswordTextProperty , typeof( CustomPasswordBox ) );
+            var dpd = DependencyPropertyDescriptor.FromProperty( PasswordTextProperty , typeof( CustomPasswordBox ) );
             dpd.AddValueChanged( this , PasswordText_PropertyChanged );
         }
 

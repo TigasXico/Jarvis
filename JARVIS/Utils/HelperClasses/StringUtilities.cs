@@ -7,7 +7,7 @@ namespace Jarvis.Utils.HelperClasses
     {
         public static bool StartsWith( this string source , string[] possibleStarts , StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase )
         {
-            foreach ( string possibleStart in possibleStarts )
+            foreach ( var possibleStart in possibleStarts )
             {
                 if ( source.StartsWith( possibleStart , stringComparison ) )
                 {
@@ -25,7 +25,7 @@ namespace Jarvis.Utils.HelperClasses
 
         public static string ToReadableException( this Exception e )
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.AppendLine( $"Exception occured({e.GetType()}) - {e.Message}");
             result.AppendLine( $"StackTrace: {e.StackTrace}" );
 

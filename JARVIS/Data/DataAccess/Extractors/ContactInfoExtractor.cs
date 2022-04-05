@@ -2,10 +2,10 @@
 using System.Configuration;
 
 using HtmlAgilityPack;
-
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
+using Jarvis.Data.DataAccess.Parsing;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Parsers;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 
 using log4net;
@@ -27,7 +27,7 @@ namespace Jarvis.Data.DataAccess.Extractors
         {
             try
             {
-                bool success = financesWebScraper.GetPageContent( ContactInfoLink , out HtmlNode infoAsHtml );
+                var success = financesWebScraper.GetPageContent( ContactInfoLink , out var infoAsHtml );
 
                 logger.Info( $"The entity contact information scrapping was {(success ? string.Empty : "not ") } sucesfull" );
 

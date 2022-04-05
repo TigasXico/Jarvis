@@ -1,6 +1,6 @@
-﻿using Jarvis.Interfaces;
+﻿using Jarvis.Data.Contract;
 
-namespace Jarvis.DataAccess.WebScraping
+namespace Jarvis.Data.DataAccess.Scraping
 {
     public abstract class WebScraperFactory<T>
     {

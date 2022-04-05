@@ -1,9 +1,7 @@
-﻿
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using Jarvis.Data.DataModels;
 
-namespace Jarvis.DataAcess.Contract
+namespace Jarvis.Data.Contract.Repositories
 {
     public interface ICompanyRepository : IRepository<CompanyDataModel>
     {

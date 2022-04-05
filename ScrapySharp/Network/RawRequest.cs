@@ -25,10 +25,10 @@ namespace ScrapySharp.Network
 
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.AppendFormat("{0} {1} HTTP/{2}.{3}\r\n", Verb, Url, HttpVersion.Major, HttpVersion.Minor);
 
-            foreach ( KeyValuePair<string , string> header in Headers)
+            foreach ( var header in Headers)
             {
                 builder.AppendFormat("{0}: {1}\r\n", header.Key, header.Value);
             }

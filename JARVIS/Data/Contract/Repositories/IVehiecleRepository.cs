@@ -1,10 +1,8 @@
-﻿
+﻿using System.Collections.Generic;
+using System.Linq;
 using Jarvis.Data.DataModels;
 
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Jarvis.DataAcess.Contract
+namespace Jarvis.Data.Contract.Repositories
 {
     public interface IVehiecleRepository : IRepository<VehiecleDataModel>
     {

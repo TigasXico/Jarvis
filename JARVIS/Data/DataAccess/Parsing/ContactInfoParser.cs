@@ -1,16 +1,12 @@
-﻿using HtmlAgilityPack;
-
+﻿using System;
+using System.Linq;
+using HtmlAgilityPack;
 using Jarvis.Data.DataModels;
 using Jarvis.Services;
-
 using log4net;
-
 using ScrapySharp.Extensions;
 
-using System;
-using System.Linq;
-
-namespace Jarvis.DataAccess.Parsers
+namespace Jarvis.Data.DataAccess.Parsing
 {
     public static class ContactInfoParser
     {
@@ -27,11 +23,11 @@ namespace Jarvis.DataAccess.Parsers
 
                     #region Get email address
 
-                    HtmlNode emailField = contactInfoAsHtml.CssSelect( "#email" ).FirstOrDefault();
+                    var emailField = contactInfoAsHtml.CssSelect( "#email" ).FirstOrDefault();
 
-                    if ( ParsingUtils.TryGetValidAttributeValue( emailField , "value" , out string email ) )
+                    if ( ParsingUtils.TryGetValidAttributeValue( emailField , "value" , out var email ) )
                     {
-                        ContactDataModel phoneContact = new ContactDataModel
+                        var phoneContact = new ContactDataModel
                         {
                             ContactHolder = fiscalEntity ,
                             ContactType = ContactType.Email ,
@@ -46,11 +42,11 @@ namespace Jarvis.DataAccess.Parsers
 
                     #region Get phone contact
 
-                    HtmlNode phoneContactField = contactInfoAsHtml.CssSelect( "#telefone" ).FirstOrDefault();
+                    var phoneContactField = contactInfoAsHtml.CssSelect( "#telefone" ).FirstOrDefault();
 
-                    if ( ParsingUtils.TryGetValidAttributeValue( phoneContactField , "value" , out string phone ) )
+                    if ( ParsingUtils.TryGetValidAttributeValue( phoneContactField , "value" , out var phone ) )
                     {
-                        ContactDataModel phoneContact = new ContactDataModel
+                        var phoneContact = new ContactDataModel
                         {
                             ContactHolder = fiscalEntity ,
                             ContactType = ContactType.PhoneNumber ,

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-
+using Jarvis.Data.Contract.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAcess.Contract;
 using Jarvis.Services;
 
 namespace Jarvis.Controllers.ModelControllers
@@ -11,7 +10,7 @@ namespace Jarvis.Controllers.ModelControllers
     {
         public CompanyController( CompanyDataModel company , BackgroundWorker worker , IUnitOfWork unitOfWork = null ) : base(  worker , unitOfWork )
         {
-            CompanyDataModel obtainedCompanyFromDatabase = UnitOfWork.Companies.GetByFiscalNumber( company.FiscalNumber );
+            var obtainedCompanyFromDatabase = UnitOfWork.Companies.GetByFiscalNumber( company.FiscalNumber );
 
             if ( obtainedCompanyFromDatabase != default( CompanyDataModel ) )
             {

@@ -4,8 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
-
-using Jarvis.Interfaces;
+using Jarvis.Data.Contract;
 using Jarvis.Utils.HelperClasses;
 
 namespace Jarvis.Controllers.ScreenControllers

@@ -48,10 +48,10 @@ namespace Jarvis.Controllers.ModelControllers
 
         public static void UpdateCurrentBalanceOfEntity( FiscalEntityDataModel fiscalEntity )
         {
-            decimal charged = fiscalEntity.Transactions.Where( t => t.TransactionType == TransactionType.Charge  ).Sum( t => t.Amount );
-            decimal payed   = fiscalEntity.Transactions.Where( t => t.TransactionType == TransactionType.Payment ).Sum( t => t.Amount );
+            var charged = fiscalEntity.Transactions.Where( t => t.TransactionType == TransactionType.Charge  ).Sum( t => t.Amount );
+            var payed   = fiscalEntity.Transactions.Where( t => t.TransactionType == TransactionType.Payment ).Sum( t => t.Amount );
 
-            decimal currentBalance = (charged - payed);
+            var currentBalance = (charged - payed);
 
             fiscalEntity.CurrentBalance = currentBalance;
         }

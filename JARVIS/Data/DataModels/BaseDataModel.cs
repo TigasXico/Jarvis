@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
-using Jarvis.Interfaces;
+using Jarvis.Data.Contract;
 using Jarvis.Utils.HelperClasses;
 
 namespace Jarvis.Data.DataModels

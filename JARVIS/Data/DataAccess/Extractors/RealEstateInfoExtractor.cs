@@ -1,14 +1,14 @@
 ﻿using HtmlAgilityPack;
-
-using Jarvis.DataAccess.Parsers;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 
 using log4net;
 
 using System;
 using System.Configuration;
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
+using Jarvis.Data.DataAccess.Parsing;
 
 namespace Jarvis.Data.DataAccess.Extractors
 {
@@ -27,7 +27,7 @@ namespace Jarvis.Data.DataAccess.Extractors
         {
             try
             {
-                bool success = financesWebScraper.GetPageContent( RealEstateInfoLink , out HtmlNode infoAsHtml );
+                var success = financesWebScraper.GetPageContent( RealEstateInfoLink , out var infoAsHtml );
                 
                 logger.Info( $"The entity real estate information scrapping was {(success ? string.Empty : "not ") } sucesfull" );
 

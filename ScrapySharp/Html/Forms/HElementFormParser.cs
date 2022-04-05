@@ -10,7 +10,7 @@ namespace ScrapySharp.Html.Forms
     {
         public static List<FormField> ParseFormFields(HElement html)
         {
-            IEnumerable<FormField> hidden = from input in html.CssSelect("input")
+            var hidden = from input in html.CssSelect("input")
                          let value = input.GetAttributeValue("value", string.Empty)
                          select new FormField
                              {
@@ -18,7 +18,7 @@ namespace ScrapySharp.Html.Forms
                                  Value = string.IsNullOrEmpty(value) ? input.InnerText : value
                              };
 
-            IEnumerable<FormField> selects = from @select in html.CssSelect("select")
+            var selects = from @select in html.CssSelect("select")
                           let name = @select.GetAttributeValue("name", string.Empty)
                           let option =
                               @select.CssSelect("option").FirstOrDefault(o => o.Attributes["selected"] != null) ??

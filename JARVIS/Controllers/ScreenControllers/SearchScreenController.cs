@@ -5,11 +5,11 @@ using System.Linq;
 using System.Windows.Input;
 
 using GalaSoft.MvvmLight.Command;
-
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Repositories;
-using Jarvis.DataAcess.Contract;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 using Jarvis.Utils.HelperClasses;
 
@@ -134,8 +134,8 @@ namespace Jarvis.Controllers.ScreenControllers
 
             if ( item is FiscalEntityDataModel fiscalEntity )
             {
-                string searchText = WrappedObject.SearchText;
-                bool result = false;
+                var searchText = WrappedObject.SearchText;
+                var result = false;
                 
                 if ( fiscalEntity.CommonId != null )
                 {

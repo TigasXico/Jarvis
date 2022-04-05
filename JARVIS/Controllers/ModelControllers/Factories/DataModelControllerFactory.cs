@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAcess.Contract;
-using Jarvis.Interfaces;
 
 namespace Jarvis.Controllers.ModelControllers.Factories
 {

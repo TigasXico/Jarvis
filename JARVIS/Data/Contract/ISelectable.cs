@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Jarvis.Interfaces
+namespace Jarvis.Data.Contract
 {
     public interface ISelectable : INotifyPropertyChanged
     {

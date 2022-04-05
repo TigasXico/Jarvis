@@ -2,8 +2,8 @@
 using System.Windows.Input;
 
 using GalaSoft.MvvmLight.Command;
-
-using Jarvis.Interfaces;
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
 using Jarvis.Services;
 
 namespace Jarvis.Controllers.ScreenControllers

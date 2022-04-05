@@ -22,13 +22,13 @@ namespace ScrapySharp.Html.Forms
 
         public WebPage Click()
         {
-            string href = node.GetAttributeValue("href", string.Empty);
+            var href = node.GetAttributeValue("href", string.Empty);
             if (string.IsNullOrWhiteSpace(href))
             {
                 return null;
             }
 
-            if ( Uri.TryCreate( href , UriKind.Absolute , out Uri url ) )
+            if ( Uri.TryCreate( href , UriKind.Absolute , out var url ) )
             {
                 return page.Browser.NavigateToPage( url , HttpVerb.Get , string.Empty );
             }

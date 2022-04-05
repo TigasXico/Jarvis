@@ -1,4 +1,4 @@
-﻿namespace Jarvis.Interfaces
+﻿namespace Jarvis.Data.Contract
 {
     public interface IEditable
     {

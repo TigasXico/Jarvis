@@ -15,9 +15,9 @@ namespace Jarvis.Screens.Converters
                 return string.Empty;
             }
 
-            FieldInfo fieldInfo = enumObj.GetType().GetField( enumObj.ToString() );
+            var fieldInfo = enumObj.GetType().GetField( enumObj.ToString() );
 
-            object[] attribArray = fieldInfo.GetCustomAttributes( false );
+            var attribArray = fieldInfo.GetCustomAttributes( false );
 
             if ( attribArray.Length == 0 )
             {
@@ -25,20 +25,20 @@ namespace Jarvis.Screens.Converters
             }
             else
             {
-                DescriptionAttribute attrib = attribArray[0] as DescriptionAttribute;
+                var attrib = attribArray[0] as DescriptionAttribute;
                 return attrib.Description;
             }
         }
 
         public object Convert( object value , Type targetType , object parameter , CultureInfo culture )
         {
-            Enum myEnum = ( Enum ) value;
+            var myEnum = ( Enum ) value;
 
             if ( myEnum == null )
             {
                 return null;
             }
-            string description = GetEnumDescription( myEnum );
+            var description = GetEnumDescription( myEnum );
 
             if ( !string.IsNullOrEmpty( description ) )
             {

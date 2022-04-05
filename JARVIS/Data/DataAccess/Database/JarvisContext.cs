@@ -1,9 +1,7 @@
-﻿
-using System.Data.Entity;
-
+﻿using System.Data.Entity;
 using Jarvis.Data.DataModels;
 
-namespace Jarvis.DataAccess.Database
+namespace Jarvis.Data.DataAccess.Database
 {
     public class JarvisContext : DbContext
     {

@@ -15,7 +15,7 @@ namespace Jarvis.Services
                 windowTitle = "Nova Janela";
             }
 
-            Window window = new Window
+            var window = new Window
             {
                 Title = windowTitle ,
                 Content = viewModel ,
@@ -29,7 +29,7 @@ namespace Jarvis.Services
 
             window.SizeToContent = SizeToContent.WidthAndHeight;
 
-            bool? result = window.ShowDialog();
+            var result = window.ShowDialog();
 
             return result.HasValue && result.Value;
         }
@@ -38,7 +38,7 @@ namespace Jarvis.Services
         {
             if ( viewModelToWindowMapping.ContainsKey( viewModel ) )
             {
-                Window targetWindow = viewModelToWindowMapping[viewModel];
+                var targetWindow = viewModelToWindowMapping[viewModel];
                 targetWindow.DialogResult = dialogResult;
                 targetWindow.Close();
             }
@@ -60,7 +60,7 @@ namespace Jarvis.Services
                     MessageBox.Show( message , title , MessageBoxButton.OK , MessageBoxImage.Information );
                     break;
                 case MessageType.Confirmation:
-                    MessageBoxResult dialogResult = MessageBox.Show( message , title , MessageBoxButton.YesNo , MessageBoxImage.Question );
+                    var dialogResult = MessageBox.Show( message , title , MessageBoxButton.YesNo , MessageBoxImage.Question );
                     result = dialogResult == MessageBoxResult.Yes;
                     break;
                 case MessageType.SuccessfullResult:

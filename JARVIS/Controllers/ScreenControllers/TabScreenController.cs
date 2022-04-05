@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 
 namespace Jarvis.Controllers.ScreenControllers
 {

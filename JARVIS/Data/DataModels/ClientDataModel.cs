@@ -30,12 +30,12 @@ namespace Jarvis.Data.DataModels
                 if ( !string.IsNullOrWhiteSpace( value ) )
                 {
                     //Convert the supplied string to date
-                    DateTime birthDateInDateFormat = DateTime.Parse( value ).Date;
+                    var birthDateInDateFormat = DateTime.Parse( value ).Date;
 
                     SetProperty( ref birthDate , birthDateInDateFormat );
 
                     // Save today's date.
-                    DateTime today = DateTime.Today;
+                    var today = DateTime.Today;
 
                     // Calculate the age.
                     int? age = today.Year - birthDateInDateFormat.Year;
@@ -117,8 +117,8 @@ namespace Jarvis.Data.DataModels
 
         public override string ToString()
         {
-            string baseDescriptor = base.ToString();
-            StringBuilder description = new StringBuilder( baseDescriptor );
+            var baseDescriptor = base.ToString();
+            var description = new StringBuilder( baseDescriptor );
             description.AppendLine( $"Data Nasc.: {BirthDate}" );
             return description.ToString();
 

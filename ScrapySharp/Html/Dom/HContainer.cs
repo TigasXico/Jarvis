@@ -45,12 +45,12 @@ namespace ScrapySharp.Html.Dom
                     innerText = string.Empty;
                 }
 
-                StringBuilder builder = new StringBuilder();
+                var builder = new StringBuilder();
                 builder.Append( innerText );
 
                 if ( Children != null )
                 {
-                    foreach ( HElement child in Children )
+                    foreach ( var child in Children )
                     {
                         builder.Append( child.InnerText );
                     }
@@ -65,8 +65,8 @@ namespace ScrapySharp.Html.Dom
         {
             get
             {
-                StringBuilder builder = new StringBuilder();
-                foreach ( HElement child in Children)
+                var builder = new StringBuilder();
+                foreach ( var child in Children)
                 {
                     builder.Append(child.GetOuterHtml());
                 }

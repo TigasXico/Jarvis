@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Jarvis.Interfaces
+namespace Jarvis.Controllers.Contract
 {
     public interface IDismissable
     {

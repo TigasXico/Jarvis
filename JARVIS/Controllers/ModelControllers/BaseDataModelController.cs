@@ -1,6 +1,7 @@
-﻿using Jarvis.DataAccess.Repositories;
-using Jarvis.DataAcess.Contract;
-using Jarvis.Interfaces;
+﻿using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Repositories;
 
 namespace Jarvis.Controllers.ModelControllers
 {

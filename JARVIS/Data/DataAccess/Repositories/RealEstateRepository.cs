@@ -1,9 +1,8 @@
-﻿
+﻿using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Database;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Database;
-using Jarvis.DataAcess.Contract;
 
-namespace Jarvis.DataAccess.Repositories
+namespace Jarvis.Data.DataAccess.Repositories
 {
     internal class RealEstateRepository : Repository<RealEstateDataModel>, IRealEstateRepository
     {

@@ -35,7 +35,7 @@ namespace ScrapySharp.Html.Parsing
         public Word ReadWord()
         {
             buffer.Remove(0, buffer.Length);
-            char c = ReadChar();
+            var c = ReadChar();
 
             //while (char.IsWhiteSpace(c))
             //    c = ReadChar();
@@ -53,7 +53,7 @@ namespace ScrapySharp.Html.Parsing
 
             buffer.Append(c);
 
-            bool letterOrDigit = IsLetterOrDigit(c);
+            var letterOrDigit = IsLetterOrDigit(c);
 
             while (IsLetterOrDigit(GetNextChar()) == letterOrDigit && !char.IsWhiteSpace(GetNextChar()) && !GetNextChar().IsToken())
             {
@@ -75,7 +75,7 @@ namespace ScrapySharp.Html.Parsing
 
         private Word ReadQuotedString(char quoteChar)
         {
-            char c = ReadChar();
+            var c = ReadChar();
             
             while (!End && context == CodeReadingContext.InQuotes)
             {
@@ -84,7 +84,7 @@ namespace ScrapySharp.Html.Parsing
                     break;
                 }
 
-                char nextChar = GetNextChar();
+                var nextChar = GetNextChar();
                 if (nextChar == Tokens.TagBegin || nextChar == Tokens.TagEnd)
                 {
                     break;
@@ -133,7 +133,7 @@ namespace ScrapySharp.Html.Parsing
                 return (char)0;
             }
 
-            char c = sourceCode[position++];
+            var c = sourceCode[position++];
             linePosition++;
 
             if (c == '\n')

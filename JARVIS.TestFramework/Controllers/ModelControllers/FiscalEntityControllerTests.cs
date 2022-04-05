@@ -56,7 +56,7 @@ namespace JARVIS.TestFramework.Controllers.ModelControllers
         [TestMethod]
         public void FiscalNumberValidation()
         {
-            foreach ( KeyValuePair<string , (FiscalEnityType, bool)> entry in fiscalNumberToTypeAndValidityMapping )
+            foreach ( var entry in fiscalNumberToTypeAndValidityMapping )
             {
                 Assert.AreEqual( entry.Value.Item2 , FiscalEntityController.IsFiscalNumberValid( entry.Key ) );
             }
@@ -65,12 +65,12 @@ namespace JARVIS.TestFramework.Controllers.ModelControllers
         [TestMethod]
         public void FiscalNumberCategortization()
         {
-            foreach ( KeyValuePair<string , (FiscalEnityType, bool)> entry in clientFiscalNumberToTypeAndValidityMapping )
+            foreach ( var entry in clientFiscalNumberToTypeAndValidityMapping )
             {
                 Assert.IsTrue( FiscalEntityController.IsFiscalNumberOfType( entry.Key , entry.Value.Item1 ) );
             }
 
-            foreach ( KeyValuePair<string , (FiscalEnityType, bool)> entry in companyFiscalNumberToTypeAndValidityMapping )
+            foreach ( var entry in companyFiscalNumberToTypeAndValidityMapping )
             {
                 Assert.IsTrue( FiscalEntityController.IsFiscalNumberOfType( entry.Key , entry.Value.Item1 ) );
             }
@@ -81,7 +81,7 @@ namespace JARVIS.TestFramework.Controllers.ModelControllers
         {
             GetTestClientDataModel();
 
-            FiscalEntityGenerationResult errorType = FiscalEntityController.ResolveFiscalInfoToEntity( "178599131" , "3726CISCO" , out FiscalEntityDataModel expectedToBeclient );
+            var errorType = FiscalEntityController.ResolveFiscalInfoToEntity( "178599131" , "3726CISCO" , out var expectedToBeclient );
 
             Assert.AreEqual( errorType , FiscalEntityGenerationResult.NoError );
 
@@ -130,7 +130,7 @@ namespace JARVIS.TestFramework.Controllers.ModelControllers
 
         public static ClientDataModel GetTestClientDataModel()
         {
-            FiscalEntityGenerationResult errorType = FiscalEntityController.ResolveFiscalInfoToEntity( "250418681" , "TRF250418" , out FiscalEntityDataModel expectedToBeclient );
+            var errorType = FiscalEntityController.ResolveFiscalInfoToEntity( "250418681" , "TRF250418" , out var expectedToBeclient );
 
             Assert.AreEqual( errorType , FiscalEntityGenerationResult.NoError );
 
@@ -143,7 +143,7 @@ namespace JARVIS.TestFramework.Controllers.ModelControllers
 
         public static CompanyDataModel GetTestCompanyDataModel()
         {
-            FiscalEntityGenerationResult errorType = FiscalEntityController.ResolveFiscalInfoToEntity( "505901447" , "JF505901" , out FiscalEntityDataModel expectedToBecompany );
+            var errorType = FiscalEntityController.ResolveFiscalInfoToEntity( "505901447" , "JF505901" , out var expectedToBecompany );
 
             Assert.AreEqual( errorType , FiscalEntityGenerationResult.NoError );
 

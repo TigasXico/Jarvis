@@ -1,6 +1,7 @@
-﻿using Jarvis.Controllers.ModelControllers;
+﻿using Jarvis.Controllers.Contract;
+using Jarvis.Controllers.ModelControllers;
+using Jarvis.Data.Contract;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 
 namespace Jarvis.Controllers.ScreenControllers
 {

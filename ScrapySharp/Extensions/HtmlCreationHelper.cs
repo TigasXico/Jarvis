@@ -9,8 +9,8 @@ namespace ScrapySharp.Extensions
     {
         public static HtmlNode MergeInParentNode(this IEnumerable<HtmlNode> nodes, string name)
         {
-            HtmlDocument doc = new HtmlDocument();
-            HtmlNode htmlNode = doc.CreateElement(name);
+            var doc = new HtmlDocument();
+            var htmlNode = doc.CreateElement(name);
             nodes.ToList().ForEach(n => htmlNode.AppendChild(n));
 
             return htmlNode;

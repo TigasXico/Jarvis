@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Configuration;
-using System.Net;
 using System.Text;
-
 using HtmlAgilityPack;
-
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
-
 using log4net;
-
 using ScrapySharp.Html.Forms;
 using ScrapySharp.Network;
 
-namespace Jarvis.DataAccess.WebScraping
+namespace Jarvis.Data.DataAccess.Scraping
 {
     public class FinancesWebScraper : FiscalEntityWebScraper
     {
@@ -71,7 +66,7 @@ namespace Jarvis.DataAccess.WebScraping
         /// <returns>True if the scraper is initialized sucesfully</returns>
         public override ScrapingBrowser InitScrapper()
         {
-            ScrapingBrowser generatedBrowser = new ScrapingBrowser
+            var generatedBrowser = new ScrapingBrowser
             {
                 AllowAutoRedirect = true ,
                 AllowMetaRedirect = true ,
@@ -110,27 +105,27 @@ namespace Jarvis.DataAccess.WebScraping
 
             if ( !IsLoggedIn)
             {
-                logger.Error( "Scraper not loged in yet!" );
+                logger.Error( "Scraper not logged in yet!" );
                 return false;
             }
 
-            //Get map between host and authentication cookie
-            NameValueCollection authenticationCookiesMapping = ( NameValueCollection ) ConfigurationManager.GetSection( "AuthenticationCookiesMapping" );
+            ////Get map between host and authentication cookie
+            //var authenticationCookiesMapping = ( NameValueCollection ) ConfigurationManager.GetSection( "AuthenticationCookiesMapping" );
 
-            //Get cookie before navigating
-            //Cookie that authenticates on site
-            Cookie existingCookie = ScrapingBrowser.GetCookie( uri , authenticationCookiesMapping[uri?.Host] );
+            ////Get cookie before navigating
+            ////Cookie that authenticates on site
+            //var existingCookie = ScrapingBrowser.GetCookie( uri , authenticationCookiesMapping[uri?.Host] );
 
             //Navigate to page
-            WebPage resultingPage = ScrapingBrowser.NavigateToPage( uri );
+            var resultingPage = ScrapingBrowser.NavigateToPage( uri );
+
+            //get the form to forward
+            var forwardSubmissionForm = resultingPage.FindFormById(CentralForwardSubmissFormName);
 
             //If cookie did not exist, then entity is not logged in in this host
             //If cookie existed, entity is logged in, no need to forward form
-            if ( existingCookie == null )
+            if ( forwardSubmissionForm != null )
             {
-                //get the form to forward
-                PageWebForm forwardSubmissionForm = resultingPage.FindFormById( CentralForwardSubmissFormName );
-
                 //submit the form, the resulting page is the target page
                 resultingPage = forwardSubmissionForm.Submit( uri );
             }
@@ -150,11 +145,11 @@ namespace Jarvis.DataAccess.WebScraping
 
         public override OperationResult LoginEntity( FiscalEntityDataModel entityToLogIn )
         {
-            WebPage loginPage = ScrapingBrowser.NavigateToPage( FinancesHomePageLink );
+            var loginPage = ScrapingBrowser.NavigateToPage( FinancesHomePageLink );
 
             if ( loginPage != null)
             {
-                PageWebForm loginForm = loginPage.FindFormById( CentralLoginFormName );
+                var loginForm = loginPage.FindFormById( CentralLoginFormName );
 
                 if ( loginForm == null )
                 {
@@ -166,9 +161,9 @@ namespace Jarvis.DataAccess.WebScraping
                 FillInCentralLoginForm( ref loginForm , entityToLogIn );
 
                 //Submit the loggin from, to have authentication cookies
-                WebPage resultingPage = loginForm.Submit( CentralAuthenticationSubmissionLink );
+                var resultingPage = loginForm.Submit( CentralAuthenticationSubmissionLink );
 
-                PageWebForm forwardSubmissionForm = resultingPage?.FindFormById( CentralForwardSubmissFormName );
+                var forwardSubmissionForm = resultingPage?.FindFormById( CentralForwardSubmissFormName );
 
                 IsLoggedIn = (resultingPage != null && forwardSubmissionForm != null);
 

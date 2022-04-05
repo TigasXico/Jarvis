@@ -7,14 +7,14 @@ using System.Windows.Forms;
 using System.Windows.Input;
 
 using GalaSoft.MvvmLight.CommandWpf;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Controllers.ModelControllers;
 using Jarvis.Controllers.ModelControllers.Factories;
+using Jarvis.Controllers.ScreenControllers.Factories;
+using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Repositories;
-using Jarvis.DataAcess.Contract;
-using Jarvis.DataHandlers.Handlers;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 using Jarvis.Utils.HelperClasses;
 
@@ -261,7 +261,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void ShowSearchScreen( SearchMode searchMode )
         {
-            SearchScreenController searchScreenController = new SearchScreenController
+            var searchScreenController = new SearchScreenController
             {
                 SearchMode = searchMode
             };
@@ -294,7 +294,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
             if ( WindowService.ShowWindowForController( searchScreenController , title ) )
             {
-                List<IDataModel> selectedEntries = searchScreenController.SelectedEntries;
+                var selectedEntries = searchScreenController.SelectedEntries;
 
                 LoadEntitiesListForEditing( selectedEntries );
             }
@@ -328,7 +328,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
                 if ( passWorkerToController )
                 {
-                    BackgroundWorker worker = new BackgroundWorker();
+                    var worker = new BackgroundWorker();
 
                     InitWorker( worker );
 
@@ -343,7 +343,7 @@ namespace Jarvis.Controllers.ScreenControllers
                 {
                     CurrentEntityController = entityController;
 
-                    IDataModelScreenController<FiscalEntityDataModel> screenController = DataModelScreenControllerFactory.GetScreenControllerForEntity( entityController );
+                    var screenController = DataModelScreenControllerFactory.GetScreenControllerForEntity( entityController );
 
                     if ( screenController != null )
                     {
@@ -384,7 +384,7 @@ namespace Jarvis.Controllers.ScreenControllers
         {
             fullFileName = null;
 
-            SaveFileDialog saveSheetDialog = new SaveFileDialog()
+            var saveSheetDialog = new SaveFileDialog()
             {
                 CheckPathExists = true ,
                 Title = "Local para guardar PDF" ,
@@ -394,7 +394,7 @@ namespace Jarvis.Controllers.ScreenControllers
                 FileName = fileName
             };
 
-            DialogResult dialogResult = saveSheetDialog.ShowDialog();
+            var dialogResult = saveSheetDialog.ShowDialog();
 
 
 
@@ -421,38 +421,38 @@ namespace Jarvis.Controllers.ScreenControllers
         {
             IUnitOfWork unitOfWork = new UnitOfWork();
 
-            NewFiscalEntityScreenController newEntityScreenController = new NewFiscalEntityScreenController( unitOfWork )
+            var newEntityScreenController = new NewFiscalEntityScreenController( unitOfWork )
             {
                 DisplayControlButtons = true
             };
 
             if ( WindowService.ShowWindowForController( newEntityScreenController , "Adicionar nova entidade" ) )
             {
-                BackgroundWorker worker = new BackgroundWorker();
+                var worker = new BackgroundWorker();
 
                 InitWorker( worker );
 
                 worker.DoWork += ( object sender , DoWorkEventArgs e ) =>
                 {
-                    List<ProcessingResult> processingResults = new List<ProcessingResult>();
+                    var processingResults = new List<ProcessingResult>();
 
                     Loading = true;
 
-                    int counter = 0;
-                    int totalToProcess = newEntityScreenController.CredentialsBeingEdited.Count;
+                    var counter = 0;
+                    var totalToProcess = newEntityScreenController.CredentialsBeingEdited.Count;
 
-                    foreach ( FiscalEntityCredentials credentials in newEntityScreenController.CredentialsBeingEdited )
+                    foreach ( var credentials in newEntityScreenController.CredentialsBeingEdited )
                     {
-                        int percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess );
+                        var percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess );
 
                         //report progress here, not on the controller , for total loading percentage
                         worker?.ReportProgress( percentage , $"A processar entidade {counter}/{totalToProcess}" );
 
-                        FiscalEntityController.ResolveFiscalInfoToEntity( credentials.FiscalNumber , credentials.FiscalPassword , out FiscalEntityDataModel generatedEntity );
+                        FiscalEntityController.ResolveFiscalInfoToEntity( credentials.FiscalNumber , credentials.FiscalPassword , out var generatedEntity );
 
-                        IUpdatableDataModelController<FiscalEntityDataModel> controller = DataModelControllerFactory.GetControllerForEntity( generatedEntity , worker , unitOfWork );
+                        var controller = DataModelControllerFactory.GetControllerForEntity( generatedEntity , worker , unitOfWork );
 
-                        OperationResult updateResult = controller.UpdateEntityInfo(true);
+                        var updateResult = controller.UpdateEntityInfo(true);
 
                         if ( newEntityScreenController.SelectedAggregate != null && generatedEntity is ClientDataModel client )
                         {
@@ -488,7 +488,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void SaveEntityAction()
         {
-            bool successfullSaved = CurrentEntityController.PersistChanges();
+            var successfullSaved = CurrentEntityController.PersistChanges();
 
             if ( successfullSaved )
             {
@@ -498,11 +498,11 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void RemoveEntityAction()
         {
-            bool? confirmation = WindowService.DisplayMessage( MessageType.Confirmation , $"Tem a certeza que pretende apagar a entidade {CurrentEntity?.CommonId} ?" );
+            var confirmation = WindowService.DisplayMessage( MessageType.Confirmation , $"Tem a certeza que pretende apagar a entidade {CurrentEntity?.CommonId} ?" );
 
             if ( confirmation.HasValue && confirmation.Value )
             {
-                bool successfullRemoval = CurrentEntityController.DeleteEntity();
+                var successfullRemoval = CurrentEntityController.DeleteEntity();
 
                 if ( successfullRemoval )
                 {
@@ -534,20 +534,20 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void UpdateSelectedEntityAction()
         {
-            bool? result = WindowService.DisplayMessage(
+            var result = WindowService.DisplayMessage(
                 MessageType.Confirmation ,
                 $"Começar processo de atualização para {CurrentEntity?.CommonId}?" ,
                 "Confirmar atualização de informação" );
 
             if ( result.HasValue && result.Value )
             {
-                BackgroundWorker worker = new BackgroundWorker();
+                var worker = new BackgroundWorker();
 
                 InitWorker( worker );
 
                 worker.DoWork += ( object sender , DoWorkEventArgs e ) =>
                 {
-                    OperationResult processingResult = CurrentEntityController.UpdateEntityInfo();
+                    var processingResult = CurrentEntityController.UpdateEntityInfo();
 
                     e.Result = new ProcessingResult( CurrentEntityController.Model , processingResult );
                 };
@@ -570,35 +570,35 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void UpdateMultipleEntitiesAction()
         {
-            SearchScreenController searchScreenController = new SearchScreenController
+            var searchScreenController = new SearchScreenController
             {
                 SearchMode = SearchMode.SearchFiscalEntity
             };
 
             if ( WindowService.ShowWindowForController( searchScreenController , "Atualizar Multiplas Entidades" ) )
             {
-                BackgroundWorker worker = new BackgroundWorker();
+                var worker = new BackgroundWorker();
 
                 InitWorker( worker );
 
                 worker.DoWork += ( object sender , DoWorkEventArgs e ) =>
                 {
-                    List<ProcessingResult> processingResults = new List<ProcessingResult>();
+                    var processingResults = new List<ProcessingResult>();
 
-                    int counter = 0;
+                    var counter = 0;
 
-                    int totalToProcess = searchScreenController.SelectedEntries.Count;
+                    var totalToProcess = searchScreenController.SelectedEntries.Count;
 
                     foreach ( FiscalEntityDataModel selectedEntry in searchScreenController.SelectedEntries )
                     {
-                        int percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess );
+                        var percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess );
 
                         //report progress here, not on the controller , for total loading percentage
                         worker?.ReportProgress( percentage , $"A processar entidade {counter}/{totalToProcess} - " );
 
-                        IUpdatableDataModelController<FiscalEntityDataModel> controller = DataModelControllerFactory.GetControllerForEntity( selectedEntry , worker );
+                        var controller = DataModelControllerFactory.GetControllerForEntity( selectedEntry , worker );
 
-                        OperationResult resultOfCurrentProcessing = controller.UpdateEntityInfo();
+                        var resultOfCurrentProcessing = controller.UpdateEntityInfo();
 
                         processingResults.Add( new ProcessingResult( selectedEntry , resultOfCurrentProcessing ) );
                     }
@@ -627,7 +627,7 @@ namespace Jarvis.Controllers.ScreenControllers
         {
             Loading = true;
 
-            List<FiscalEntityDataModel> allEntities = new List<FiscalEntityDataModel>();
+            var allEntities = new List<FiscalEntityDataModel>();
             
             using ( IUnitOfWork unitOfWork = new UnitOfWork() )
             {
@@ -636,35 +636,35 @@ namespace Jarvis.Controllers.ScreenControllers
                 allEntities.AddRange( unitOfWork.Companies.GetAll() );
             }
 
-            string message = $"Atualizar todas as {allEntities.Count} entidades poderá demorar algum tempo. De certeza que pretende prosseguir?";
+            var message = $"Atualizar todas as {allEntities.Count} entidades poderá demorar algum tempo. De certeza que pretende prosseguir?";
 
-            bool? confirmationResult = WindowService.DisplayMessage( MessageType.Confirmation , message , "Atualizar TODAS as Entidades" );
+            var confirmationResult = WindowService.DisplayMessage( MessageType.Confirmation , message , "Atualizar TODAS as Entidades" );
 
             if ( confirmationResult.HasValue && confirmationResult.Value )
             {
-                BackgroundWorker worker = new BackgroundWorker();
+                var worker = new BackgroundWorker();
 
                 InitWorker( worker );
 
                 worker.DoWork += ( object sender , DoWorkEventArgs e ) =>
                 {
-                    List<ProcessingResult> processingResults = new List<ProcessingResult>();
+                    var processingResults = new List<ProcessingResult>();
 
-                    int counter = 0;
-                    int totalToProcess = allEntities.Count;
+                    var counter = 0;
+                    var totalToProcess = allEntities.Count;
 
                     using ( IUnitOfWork unitOfWork = new UnitOfWork() )
                     {
-                        foreach ( FiscalEntityDataModel selectedEntry in allEntities )
+                        foreach ( var selectedEntry in allEntities )
                         {
-                            int percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess );
+                            var percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess );
 
                             //report progress here, not on the controller , for total loading percentage
                             worker?.ReportProgress( percentage , $"A processar entidade {counter}/{totalToProcess} - " );
 
-                            IUpdatableDataModelController<FiscalEntityDataModel> controller = DataModelControllerFactory.GetControllerForEntity( selectedEntry , worker , unitOfWork );
+                            var controller = DataModelControllerFactory.GetControllerForEntity( selectedEntry , worker , unitOfWork );
 
-                            OperationResult resultOfCurrentProcessing = controller.UpdateEntityInfo( true );
+                            var resultOfCurrentProcessing = controller.UpdateEntityInfo( true );
 
                             processingResults.Add( new ProcessingResult( selectedEntry , resultOfCurrentProcessing ) );
                         }
@@ -695,7 +695,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private static void DisplayProcessingResult( List<ProcessingResult> processingResults )
         {
-            EntitiesProcessingResultScreenController processingResultScreenController = new EntitiesProcessingResultScreenController()
+            var processingResultScreenController = new EntitiesProcessingResultScreenController()
             {
                 EntitiesProcessingStatus = processingResults
             };
@@ -748,21 +748,21 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void PrintIUCAction()
         {
-            IucMonthSelectionScreenController selectIucMonthScreenHandler = new IucMonthSelectionScreenController();
+            var selectIucMonthScreenHandler = new IucMonthSelectionScreenController();
 
             if ( WindowService.ShowWindowForController( selectIucMonthScreenHandler , "Imprimir IUC" ) )
             {
-                IucSearchHandler printIucHandler = new IucSearchHandler()
+                var printIucHandler = new IucSearchHandler()
                 {
                     MonthNameOfSearch = selectIucMonthScreenHandler.SelectedMonthName ,
                     MonthNumberOfSearch = selectIucMonthScreenHandler.SelectedMonthNumber
                 };
 
-                string targetFileName = $"IUC - {printIucHandler.MonthNameOfSearch}";
+                var targetFileName = $"IUC - {printIucHandler.MonthNameOfSearch}";
 
-                if ( GetPathToSaveFile( targetFileName , out string targetFileFullName ) )
+                if ( GetPathToSaveFile( targetFileName , out var targetFileFullName ) )
                 {
-                    BackgroundWorker worker = new BackgroundWorker();
+                    var worker = new BackgroundWorker();
 
                     InitWorker( worker );
 
@@ -776,7 +776,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
                     worker.RunWorkerCompleted += ( object sender , RunWorkerCompletedEventArgs e ) =>
                     {
-                        ProcessingResult processingResult = e.Result as ProcessingResult;
+                        var processingResult = e.Result as ProcessingResult;
 
                         if ( processingResult.Result == OperationResult.Success )
                         {
@@ -835,7 +835,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void ImportFromCSVAction()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var openFileDialog = new OpenFileDialog
             {
                 Multiselect = false ,
                 Filter = "CSV Files(*.csv ) | *.csv"
@@ -845,7 +845,7 @@ namespace Jarvis.Controllers.ScreenControllers
             {
 
 
-                BackgroundWorker worker = new BackgroundWorker();
+                var worker = new BackgroundWorker();
 
                 InitWorker( worker );
 
@@ -853,7 +853,7 @@ namespace Jarvis.Controllers.ScreenControllers
                 {
                     Loading = true;
 
-                    List<ProcessingResult> processingResults = CSVImportHandler.ProcessImport( openFileDialog.FileName , worker );
+                    var processingResults = CSVImportHandler.ProcessImport( openFileDialog.FileName , worker );
 
                     e.Result = processingResults;
                 };

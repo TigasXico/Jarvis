@@ -37,9 +37,9 @@ namespace ScrapySharp.Html.Dom
 
         public virtual string GetOuterHtml(HtmlGenerationStyle generationStyle = HtmlGenerationStyle.None)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            bool selfClosing = !HasChildren && string.IsNullOrEmpty(innerText);
+            var selfClosing = !HasChildren && string.IsNullOrEmpty(innerText);
 
             if (generationStyle == HtmlGenerationStyle.Indent)
             {
@@ -53,7 +53,7 @@ namespace ScrapySharp.Html.Dom
                 
                 if (HasAttributes)
                 {
-                    foreach ( string key in Attributes.AllKeys)
+                    foreach ( var key in Attributes.AllKeys)
                     {
                         builder.AppendFormat(" {0}=\"{1}\"", key, Attributes[key]);
                     }
@@ -78,7 +78,7 @@ namespace ScrapySharp.Html.Dom
                         builder.AppendLine();
                     }
 
-                    foreach ( HElement child in Children)
+                    foreach ( var child in Children)
                     {
                         child.IndentLevel = IndentLevel + 1;
                         builder.Append(child.GetOuterHtml(generationStyle));
@@ -142,7 +142,7 @@ namespace ScrapySharp.Html.Dom
         
         public IEnumerable<HElement> Ancestors()
         {
-            for (HElement node = ParentNode; node.ParentNode != null; node = node.ParentNode)
+            for (var node = ParentNode; node.ParentNode != null; node = node.ParentNode)
             {
                 yield return node.ParentNode;
             }
@@ -150,7 +150,7 @@ namespace ScrapySharp.Html.Dom
 
         public IEnumerable<HElement> Ancestors(string name)
         {
-            for (HElement n = ParentNode; n != null; n = n.ParentNode)
+            for (var n = ParentNode; n != null; n = n.ParentNode)
             {
                 if (n.Name == name)
                 {
@@ -166,7 +166,7 @@ namespace ScrapySharp.Html.Dom
                 return def;
             }
 
-            string value = Attributes[name];
+            var value = Attributes[name];
             if (value == null)
             {
                 return def;
@@ -182,7 +182,7 @@ namespace ScrapySharp.Html.Dom
                 return def;
             }
 
-            string value = Attributes[name];
+            var value = Attributes[name];
             if (value == null)
             {
                 return def;
@@ -205,7 +205,7 @@ namespace ScrapySharp.Html.Dom
                 return def;
             }
 
-            string value = Attributes[name];
+            var value = Attributes[name];
             if (value == null)
             {
                 return def;

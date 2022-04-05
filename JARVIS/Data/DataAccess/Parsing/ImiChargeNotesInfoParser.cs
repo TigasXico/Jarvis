@@ -7,8 +7,6 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Parsers;
-
 using log4net;
 
 using ScrapySharp.Extensions;
@@ -17,60 +15,64 @@ namespace Jarvis.Data.DataAccess.Parsing
 {
     public static class ImiChargeNotesInfoParser
     {
-        private static readonly ILog logger = LogManager.GetLogger( typeof( ImiChargeNotesInfoParser ) );
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ImiChargeNotesInfoParser));
 
-        internal static bool GetInfoOfImiPaymentOffYear( HtmlNode paymentInfoAsHtml , FiscalEntityDataModel fiscalEntity )
+        internal static bool GetInfoOfImiPaymentOffYear(HtmlNode paymentInfoAsHtml, FiscalEntityDataModel fiscalEntity)
         {
             try
             {
                 //Get year of search
-                HtmlNode yearCell = paymentInfoAsHtml.CssSelect( ".bTD" ).Skip( 1 ).SingleOrDefault();
+                var yearCell = paymentInfoAsHtml.CssSelect(".bTD").Skip(1).SingleOrDefault();
 
-                if ( yearCell == default )
+                if (yearCell == default)
                 {
-                    logger.Error( "Cannot parse IMI Payment - cannot obtain year from details page" );
+                    logger.Error("Cannot parse IMI Payment - cannot obtain year from details page");
                     return false;
                 }
 
-                string year = yearCell.InnerText;
+                var year = yearCell.InnerText;
 
                 //Get payment details
-                IEnumerable<HtmlNode> payments = paymentInfoAsHtml.CssSelect( ".iTR" ).Skip( 2 );
+                var payments = paymentInfoAsHtml.CssSelect(".iTR").Skip(2);
 
-                foreach ( HtmlNode currentPaymentDetails in payments )
+                lock (fiscalEntity.updatingCollectionsLock)
                 {
-                    HtmlNode[] currentPaymentInfo = currentPaymentDetails.CssSelect( ".iTD" ).ToArray();
 
-                    if ( currentPaymentInfo.Length != 0 )
+                    fiscalEntity.ImiChargeNotes.Clear();
+
+                    foreach (var currentPaymentDetails in payments)
                     {
-                        int chargeNoteStatusInt = int.Parse( ParsingUtils.GetFieldValueClean( currentPaymentInfo , 3 ).Substring( 0 , 1 ) );
+                        var currentPaymentInfo = currentPaymentDetails.CssSelect(".iTD").ToArray();
 
-                        ImiChargeNoteStatus chargeNoteStatus = ( ImiChargeNoteStatus ) (chargeNoteStatusInt);
-
-                        string fieldValue = ParsingUtils.GetFieldValueClean( currentPaymentInfo , 1 );
-
-                        string paymentValueAsString = Regex.Replace( fieldValue , @"[^0-9,.]" , "" );
-
-                        decimal paymentValue = decimal.Parse( paymentValueAsString );
-
-                        DateTime limitDate = DateTime.Parse( ParsingUtils.GetFieldValueClean( currentPaymentInfo , 2 ) );
-
-                        int numberOfBuildings = int.Parse( ParsingUtils.GetFieldValueClean( currentPaymentInfo , 5 ));
-
-                        ImiChargeNotesDataModel currentPaymentDetail = new ImiChargeNotesDataModel
+                        if (currentPaymentInfo.Length != 0)
                         {
-                            ChargeNoteNumber = ParsingUtils.GetFieldValueClean( currentPaymentInfo , 0 ) ,
-                            PaymentValue =  paymentValue,
-                            LimitDate = limitDate ,
-                            Status = chargeNoteStatus ,
-                            PaymentReference = ParsingUtils.GetFieldValueClean( currentPaymentInfo , 4 ) ,
-                            NumberOfBuildings = numberOfBuildings,
-                            Year = year
-                        };
+                            var chargeNoteStatusInt =
+                                int.Parse(ParsingUtils.GetFieldValueClean(currentPaymentInfo, 3).Substring(0, 1));
 
-                        lock ( fiscalEntity.updatingCollectionsLock )
-                        {
-                            fiscalEntity.ImiChargeNotes.Add( currentPaymentDetail );
+                            var chargeNoteStatus = (ImiChargeNoteStatus) (chargeNoteStatusInt);
+
+                            var fieldValue = ParsingUtils.GetFieldValueClean(currentPaymentInfo, 1);
+
+                            var paymentValueAsString = Regex.Replace(fieldValue, @"[^0-9,.]", "");
+
+                            var paymentValue = decimal.Parse(paymentValueAsString);
+
+                            var limitDate = DateTime.Parse(ParsingUtils.GetFieldValueClean(currentPaymentInfo, 2));
+
+                            var numberOfBuildings = int.Parse(ParsingUtils.GetFieldValueClean(currentPaymentInfo, 5));
+
+                            var currentPaymentDetail = new ImiChargeNotesDataModel
+                            {
+                                ChargeNoteNumber = ParsingUtils.GetFieldValueClean(currentPaymentInfo, 0),
+                                PaymentValue = paymentValue,
+                                LimitDate = limitDate,
+                                Status = chargeNoteStatus,
+                                PaymentReference = ParsingUtils.GetFieldValueClean(currentPaymentInfo, 4),
+                                NumberOfBuildings = numberOfBuildings,
+                                Year = year
+                            };
+
+                            fiscalEntity.ImiChargeNotes.Add(currentPaymentDetail);
                         }
                     }
                 }

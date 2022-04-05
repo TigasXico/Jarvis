@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Jarvis.DataAcess.Contract
+namespace Jarvis.Data.Contract.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {

@@ -51,9 +51,9 @@ namespace ScrapySharp.Network
 
         public WebResource DownloadWebResource( Uri url )
         {
-            WebResponse response = ExecuteRequest( url , HttpVerb.Get , new NameValueCollection() );
-            MemoryStream memoryStream = new MemoryStream();
-            Stream responseStream = response.GetResponseStream();
+            var response = ExecuteRequest( url , HttpVerb.Get , new NameValueCollection() );
+            var memoryStream = new MemoryStream();
+            var responseStream = response.GetResponseStream();
 
             if ( responseStream != null )
             {
@@ -71,7 +71,7 @@ namespace ScrapySharp.Network
                 return false;
             }
 
-            string[] noCacheHeaders = new[]
+            var noCacheHeaders = new[]
                 {
                     "no-cache",
                     "no-store",
@@ -89,7 +89,7 @@ namespace ScrapySharp.Network
 
         public async Task<string> AjaxDownloadStringAsync( Uri url )
         {
-            HttpWebRequest request = CreateRequest( url , HttpVerb.Get );
+            var request = CreateRequest( url , HttpVerb.Get );
             request.Headers["X-Prototype-Version"] = "1.6.1";
             request.Headers["X-Requested-With"] = "XMLHttpRequest";
 
@@ -103,7 +103,7 @@ namespace ScrapySharp.Network
 
         public async Task<string> DownloadStringAsync( Uri url )
         {
-            HttpWebRequest request = CreateRequest( url , HttpVerb.Get );
+            var request = CreateRequest( url , HttpVerb.Get );
             return await GetResponseAsync( url , request , 0 , new byte[0] );
         }
 
@@ -134,7 +134,7 @@ namespace ScrapySharp.Network
 
         private HttpWebRequest CreateRequest( Uri url , HttpVerb verb )
         {
-            HttpWebRequest request = ( HttpWebRequest ) WebRequest.Create( url.AbsoluteUri );
+            var request = ( HttpWebRequest ) WebRequest.Create( url.AbsoluteUri );
             request.Referer = referer?.AbsoluteUri;
             request.Method = ToMethod( verb );
             request.CookieContainer = cookieContainer;
@@ -146,7 +146,7 @@ namespace ScrapySharp.Network
 
             if ( Headers != null )
             {
-                foreach ( KeyValuePair<string , string> header in Headers )
+                foreach ( var header in Headers )
                 {
                     if ( header.Key.ToLower() == "accept" )
                     {
@@ -217,9 +217,9 @@ namespace ScrapySharp.Network
 
         private async Task<WebPage> GetResponseAsync( Uri url , HttpWebRequest request , int iteration , byte[] requestBody )
         {
-            HttpWebResponse response = await GetWebResponseAsync( url , request ).ConfigureAwait( false );
-            Stream responseStream = response.GetResponseStream();
-            List<KeyValuePair<string , string>> headers = request.Headers.AllKeys.Select( k => new KeyValuePair<string , string>( k , request.Headers[k] ) ).ToList();
+            var response = await GetWebResponseAsync( url , request ).ConfigureAwait( false );
+            var responseStream = response.GetResponseStream();
+            var headers = request.Headers.AllKeys.Select( k => new KeyValuePair<string , string>( k , request.Headers[k] ) ).ToList();
 
             if ( responseStream == null )
             {
@@ -228,34 +228,34 @@ namespace ScrapySharp.Network
                     new RawResponse( response.ProtocolVersion , response.StatusCode , response.StatusDescription , response.Headers , new byte[0] , Encoding ) , Encoding , AutoDetectCharsetEncoding );
             }
 
-            MemoryStream body = new MemoryStream();
+            var body = new MemoryStream();
             responseStream.CopyTo( body );
             responseStream.Close();
             body.Position = 0;
-            string content = Encoding.GetString( body.ToArray() );
+            var content = Encoding.GetString( body.ToArray() );
             body.Position = 0;
 
-            RawRequest rawRequest = new RawRequest( request.Method , request.RequestUri , request.ProtocolVersion , headers , requestBody , Encoding );
-            WebPage webPage = new WebPage( this , url , AutoDownloadPagesResources , rawRequest ,
+            var rawRequest = new RawRequest( request.Method , request.RequestUri , request.ProtocolVersion , headers , requestBody , Encoding );
+            var webPage = new WebPage( this , url , AutoDownloadPagesResources , rawRequest ,
                 new RawResponse( response.ProtocolVersion , response.StatusCode , response.StatusDescription , response.Headers , body.ToArray() , Encoding ) , Encoding , AutoDetectCharsetEncoding );
 
             if ( AllowMetaRedirect && !string.IsNullOrEmpty( response.ContentType ) && response.ContentType.Contains( "html" ) && iteration < 10 )
             {
-                HtmlAgilityPack.HtmlNode html = content.ToHtmlNode();
-                HtmlAgilityPack.HtmlNode meta = html.CssSelect( "meta" )
+                var html = content.ToHtmlNode();
+                var meta = html.CssSelect( "meta" )
                     .FirstOrDefault( p => p.Attributes != null && p.Attributes.HasKeyIgnoreCase( "HTTP-EQUIV" )
                                           && p.Attributes.GetIgnoreCase( "HTTP-EQUIV" ).Equals( "refresh" , StringComparison.InvariantCultureIgnoreCase ) );
 
                 if ( meta != null )
                 {
-                    string attr = meta.Attributes.GetIgnoreCase( "content" );
-                    Match match = parseMetaRefreshRegex.Match( attr );
+                    var attr = meta.Attributes.GetIgnoreCase( "content" );
+                    var match = parseMetaRefreshRegex.Match( attr );
                     if ( !match.Success )
                     {
                         return webPage;
                     }
 
-                    int seconds = 0;
+                    var seconds = 0;
                     if ( match.Groups["seconds"].Success )
                     {
                         seconds = int.Parse( match.Groups["seconds"].Value );
@@ -266,16 +266,16 @@ namespace ScrapySharp.Network
                         return webPage;
                     }
 
-                    string redirect = Unquote( match.Groups["url"].Value );
+                    var redirect = Unquote( match.Groups["url"].Value );
 
-                    if ( !Uri.TryCreate( redirect , UriKind.RelativeOrAbsolute , out Uri redirectUrl ) )
+                    if ( !Uri.TryCreate( redirect , UriKind.RelativeOrAbsolute , out var redirectUrl ) )
                     {
                         return webPage;
                     }
 
                     if ( !redirectUrl.IsAbsoluteUri )
                     {
-                        string baseUrl = string.Format( "{0}://{1}" , url.Scheme , url.Host );
+                        var baseUrl = $"{url.Scheme}://{url.Host}";
                         if ( !url.IsDefaultPort )
                         {
                             baseUrl += ":" + url.Port;
@@ -287,7 +287,7 @@ namespace ScrapySharp.Network
                         }
                         else
                         {
-                            string path = string.Join( "/" , url.Segments.Take( url.Segments.Length - 1 ).Skip( 1 ) );
+                            var path = string.Join( "/" , url.Segments.Take( url.Segments.Length - 1 ).Skip( 1 ) );
                             redirectUrl = baseUrl.CombineUrl( path ).Combine( redirect );
                         }
                     }
@@ -323,7 +323,7 @@ namespace ScrapySharp.Network
 
         private async Task<WebPage> DownloadRedirect( Uri url , int iteration )
         {
-            HttpWebRequest request = CreateRequest( url , HttpVerb.Get );
+            var request = CreateRequest( url , HttpVerb.Get );
             return await GetResponseAsync( url , request , iteration , new byte[0] );
         }
 
@@ -346,16 +346,21 @@ namespace ScrapySharp.Network
                 response = ( HttpWebResponse ) e.Response;
             }
 
-            WebHeaderCollection headers = response.Headers;
+            var headers = response.Headers;
 
             if ( !IgnoreCookies )
             {
-                string cookiesExpression = headers["Set-Cookie"];
+                var cookiesExpression = headers["Set-Cookie"];
+
+                var encodingForCookies = Encoding.GetEncoding("iso-8859-1");
+
+                cookiesExpression = HttpUtility.UrlEncode(cookiesExpression, encodingForCookies);
+
                 if ( !string.IsNullOrEmpty( cookiesExpression ) )
                 {
-                    Uri cookieUrl =
-                        new Uri( string.Format( "{0}://{1}:{2}/" , response.ResponseUri.Scheme , response.ResponseUri.Host ,
-                                              response.ResponseUri.Port ) );
+                    var cookieUrl =
+                        new Uri(
+                            $"{response.ResponseUri.Scheme}://{response.ResponseUri.Host}:{response.ResponseUri.Port}/");
                     if ( UseDefaultCookiesParser )
                     {
                         cookieContainer.SetCookies( cookieUrl , cookiesExpression );
@@ -371,13 +376,13 @@ namespace ScrapySharp.Network
 
         public void SetCookies( Uri cookieUrl , string cookiesExpression )
         {
-            CookiesParser parser = new CookiesParser( cookieUrl.Host );
-            List<Cookie> cookies = parser.ParseCookies( cookiesExpression );
-            CookieCollection previousCookies = cookieContainer.GetCookies( cookieUrl );
+            var parser = new CookiesParser( cookieUrl.Host );
+            var cookies = parser.ParseCookies( cookiesExpression );
+            var previousCookies = cookieContainer.GetCookies( cookieUrl );
 
-            foreach ( Cookie cookie in cookies )
+            foreach ( var cookie in cookies )
             {
-                Cookie c = previousCookies[cookie.Name];
+                var c = previousCookies[cookie.Name];
                 if ( c != null )
                 {
                     c.Value = cookie.Value;
@@ -405,11 +410,11 @@ namespace ScrapySharp.Network
 
         public async Task<WebResponse> ExecuteRequestAsync( Uri url , HttpVerb verb , string data , string contentType = null )
         {
-            string path = string.IsNullOrEmpty( data )
+            var path = string.IsNullOrEmpty( data )
                               ? url.AbsoluteUri
-                              : (verb == HttpVerb.Get ? string.Format( "{0}?{1}" , url.AbsoluteUri , data ) : url.AbsoluteUri);
+                              : (verb == HttpVerb.Get ? $"{url.AbsoluteUri}?{data}" : url.AbsoluteUri);
 
-            HttpWebRequest request = CreateRequest( new Uri( path ) , verb );
+            var request = CreateRequest( new Uri( path ) , verb );
 
             if ( verb == HttpVerb.Post )
             {
@@ -420,8 +425,8 @@ namespace ScrapySharp.Network
 
             if ( verb == HttpVerb.Post )
             {
-                Stream stream = await request.GetRequestStreamAsync();
-                using ( StreamWriter writer = new StreamWriter( stream ) )
+                var stream = await request.GetRequestStreamAsync();
+                using ( var writer = new StreamWriter( stream ) )
                 {
                     writer.Write( data );
                     writer.Flush();
@@ -438,18 +443,18 @@ namespace ScrapySharp.Network
 
         public WebPage NavigateToPage( Uri url , HttpVerb verb = HttpVerb.Get , string data = "" , string contentType = null )
         {
-            Task<WebPage> task = NavigateToPageAsync( url , verb , data , contentType );
+            var task = NavigateToPageAsync( url , verb , data , contentType );
             task.Wait();
             return task.Result;
         }
 
         public async Task<WebPage> NavigateToPageAsync( Uri url , HttpVerb verb = HttpVerb.Get , string data = "" , string contentType = null )
         {
-            string path = string.IsNullOrEmpty( data )
+            var path = string.IsNullOrEmpty( data )
                               ? url.AbsoluteUri
-                              : (verb == HttpVerb.Get ? string.Format( "{0}?{1}" , url.AbsoluteUri , data ) : url.AbsoluteUri);
+                              : (verb == HttpVerb.Get ? $"{url.AbsoluteUri}?{data}" : url.AbsoluteUri);
 
-            HttpWebRequest request = CreateRequest( new Uri( path ) , verb );
+            var request = CreateRequest( new Uri( path ) , verb );
 
             if ( verb == HttpVerb.Post )
             {
@@ -460,8 +465,8 @@ namespace ScrapySharp.Network
 
             if ( verb == HttpVerb.Post )
             {
-                Stream stream = await request.GetRequestStreamAsync().ConfigureAwait( false );
-                using ( StreamWriter writer = new StreamWriter( stream ) )
+                var stream = await request.GetRequestStreamAsync().ConfigureAwait( false );
+                using ( var writer = new StreamWriter( stream ) )
                 {
                     writer.Write( data );
                     writer.Flush();
@@ -506,15 +511,15 @@ namespace ScrapySharp.Network
 
         public static string GetHttpPostVars( NameValueCollection variables )
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            for ( int i = 0 ; i < variables.Count ; i++ )
+            for ( var i = 0 ; i < variables.Count ; i++ )
             {
-                string key = variables.GetKey( i );
-                string[] values = variables.GetValues( i );
+                var key = variables.GetKey( i );
+                var values = variables.GetValues( i );
                 if ( values != null )
                 {
-                    foreach ( string value in values )
+                    foreach ( var value in values )
                     {
                         builder.AppendFormat( "{0}={1}" , HttpUtility.UrlEncode( key ) , HttpUtility.UrlEncode( value ) );
                     }
@@ -573,7 +578,7 @@ namespace ScrapySharp.Network
 
         public Cookie GetCookie( Uri url , string name )
         {
-            CookieCollection collection = cookieContainer.GetCookies( url );
+            var collection = cookieContainer.GetCookies( url );
 
             return collection[name];
         }

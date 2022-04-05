@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-
 using HtmlAgilityPack;
-
 using Jarvis.Data.DataModels;
 using Jarvis.Services;
-
 using ScrapySharp.Extensions;
 
-namespace Jarvis.DataAccess.Parsers
+namespace Jarvis.Data.DataAccess.Parsing
 {
     public static class VehiecleInfoParser
     {
@@ -22,17 +18,17 @@ namespace Jarvis.DataAccess.Parsers
                     fiscalEntity.Vehiecles.Clear();
                 }
 
-                List<HtmlNode> allListedVehiecles = vehiecleInfoAsHtml.CssSelect( "#tabela" ).CssSelect( "tr" ).ToList();
+                var allListedVehiecles = vehiecleInfoAsHtml.CssSelect( "#tabela" ).CssSelect( "tr" ).ToList();
 
-                foreach ( HtmlNode currentVehiecle in allListedVehiecles )
+                foreach ( var currentVehiecle in allListedVehiecles )
                 {
-                    HtmlNode[] currentVehiecleInfo = currentVehiecle.CssSelect( "td" ).ToArray();
+                    var currentVehiecleInfo = currentVehiecle.CssSelect( "td" ).ToArray();
 
                     if ( currentVehiecleInfo.Length != 0 )
                     {
                         lock ( fiscalEntity.updatingCollectionsLock )
                         {
-                            VehiecleDataModel clientVehiecle = new VehiecleDataModel()
+                            var clientVehiecle = new VehiecleDataModel()
                             {
                                 Owner = fiscalEntity ,
                                 RoleOfClient = ParsingUtils.GetFieldValueClean( currentVehiecleInfo , 4 ) ,
@@ -41,7 +37,7 @@ namespace Jarvis.DataAccess.Parsers
                                 Model = ParsingUtils.GetFieldValueClean( currentVehiecleInfo , 3 ) ,
                             };
 
-                            string dateOfLicensePlateAsString = ParsingUtils.GetFieldValueClean( currentVehiecleInfo , 1 );
+                            var dateOfLicensePlateAsString = ParsingUtils.GetFieldValueClean( currentVehiecleInfo , 1 );
 
                             if ( !string.IsNullOrWhiteSpace( dateOfLicensePlateAsString ) )
                             {

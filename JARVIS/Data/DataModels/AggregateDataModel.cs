@@ -14,11 +14,11 @@ namespace Jarvis.Data.DataModels
                 if ( Members?.Count > 0 )
                 {
 
-                    StringBuilder description = new StringBuilder();
+                    var description = new StringBuilder();
 
                     description.AppendLine( "Aggregado:" );
 
-                    foreach ( ClientDataModel member in Members )
+                    foreach ( var member in Members )
                     {
                         description.AppendLine( member.Name );
                     }

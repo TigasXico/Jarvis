@@ -17,9 +17,9 @@ namespace ScrapySharp.Network
 
         public List<KeyValuePair<string, string>> ParseValuePairs(string cookiesExpression)
         {
-            List<KeyValuePair<string , string>> list = new List<KeyValuePair<string, string>>();
+            var list = new List<KeyValuePair<string, string>>();
 
-            Match match = splitCookiesRegex.Match(cookiesExpression);
+            var match = splitCookiesRegex.Match(cookiesExpression);
 
             while (match.Success)
             {
@@ -39,12 +39,12 @@ namespace ScrapySharp.Network
 
         public List<Cookie> ParseCookies(string cookiesExpression)
         {
-            List<Cookie> cookies = new List<Cookie>();
-            List<KeyValuePair<string , string>> keyValuePairs = ParseValuePairs(cookiesExpression);
+            var cookies = new List<Cookie>();
+            var keyValuePairs = ParseValuePairs(cookiesExpression);
 
-            for (int i = 0; i < keyValuePairs.Count; i++)
+            for (var i = 0; i < keyValuePairs.Count; i++)
             {
-                KeyValuePair<string , string> pair = keyValuePairs[i];
+                var pair = keyValuePairs[i];
                 if (pair.Key.Equals("path", StringComparison.InvariantCultureIgnoreCase) 
                     || pair.Key.Equals("domain", StringComparison.InvariantCultureIgnoreCase)
                     || pair.Key.Equals("expires", StringComparison.InvariantCultureIgnoreCase))
@@ -52,12 +52,12 @@ namespace ScrapySharp.Network
                     continue;
                 }
 
-                string name = pair.Key;
-                string value = pair.Value;
+                var name = pair.Key;
+                var value = pair.Value;
                 string path = null;
                 string domain = null;
 
-                int next1 = i + 1;
+                var next1 = i + 1;
                 if (next1 < keyValuePairs.Count)
                 {
                     if (keyValuePairs[next1].Key.Equals("path", StringComparison.InvariantCultureIgnoreCase))
@@ -71,7 +71,7 @@ namespace ScrapySharp.Network
                     }
                 }
 
-                int next2 = i + 2;
+                var next2 = i + 2;
                 if (next2 < keyValuePairs.Count)
                 {
                     if (keyValuePairs[next2].Key.Equals("path", StringComparison.InvariantCultureIgnoreCase))

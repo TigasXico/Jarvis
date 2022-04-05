@@ -58,7 +58,7 @@ namespace Jarvis.Data.DataModels
 
         public override string ToString()
         {
-            StringBuilder description = new StringBuilder();
+            var description = new StringBuilder();
             description.AppendLine( $"Tipo de contacto: {ContactTypeDescription}" );
             description.Append( $"Contacto: {ContactValue}" );
             return description.ToString();

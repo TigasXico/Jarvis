@@ -1,14 +1,11 @@
-﻿using HtmlAgilityPack;
-
+﻿using System;
+using System.Linq;
+using HtmlAgilityPack;
 using Jarvis.Data.DataModels;
 using Jarvis.Services;
-
 using ScrapySharp.Extensions;
 
-using System;
-using System.Linq;
-
-namespace Jarvis.DataAccess.Parsers
+namespace Jarvis.Data.DataAccess.Parsing
 {
     public static class CompanyBasicInfoParser
     {
@@ -16,7 +13,7 @@ namespace Jarvis.DataAccess.Parsers
         {
             try
             {
-                HtmlNode[] allFieldValues = clientInfoAsHtml.CssSelect( ".fieldValue" ).ToArray();
+                var allFieldValues = clientInfoAsHtml.CssSelect( ".fieldValue" ).ToArray();
 
                 company.Name = ParsingUtils.GetFieldValueClean( allFieldValues , 1 );
                 company.FiscalAddress = ParsingUtils.GetFieldValueClean( allFieldValues , 2 );

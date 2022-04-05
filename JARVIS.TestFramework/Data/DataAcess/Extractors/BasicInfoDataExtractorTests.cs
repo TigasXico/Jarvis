@@ -1,12 +1,10 @@
 ﻿
 using System;
 using System.Linq;
-
+using Jarvis.Data.Contract;
 using Jarvis.Data.DataAccess.Extractors;
-using Jarvis.DataAccess.WebScrapping;
+using Jarvis.Data.DataAccess.Scraping;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
-
 using JARVIS.TestFramework.Controllers.ModelControllers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,7 +31,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
         [TestMethod]
         public void TestClientBasicInfoExtraction()
         {
-            ClientDataModel testClientDataModel = FiscalEntityControllerTests.GetTestClientDataModel();
+            var testClientDataModel = FiscalEntityControllerTests.GetTestClientDataModel();
 
             WebScraper.LoginEntity( testClientDataModel );
 
@@ -63,7 +61,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
         [TestMethod]
         public void TestCompanyBasicInfoExtraction()
         {
-            CompanyDataModel testCompanyDataModel = FiscalEntityControllerTests.GetTestCompanyDataModel();
+            var testCompanyDataModel = FiscalEntityControllerTests.GetTestCompanyDataModel();
 
             using ( WebScraper )
             {
@@ -91,7 +89,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
         [TestMethod]
         public void TestContactsInfoExtraction()
         {
-            FiscalEntityDataModel testFiscalEntity = FiscalEntityControllerTests.GetTestFiscalEntityDataModel(FiscalEntityTypes.Client);
+            var testFiscalEntity = FiscalEntityControllerTests.GetTestFiscalEntityDataModel(FiscalEntityTypes.Client);
 
             using ( WebScraper )
             {
@@ -104,7 +102,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
 
             Assert.AreEqual( 2 , testFiscalEntity.Contacts.Count );
 
-            ContactDataModel currentContactModel = testFiscalEntity.Contacts[0];
+            var currentContactModel = testFiscalEntity.Contacts[0];
 
             Assert.AreEqual( ContactType.Email , currentContactModel.ContactType );
 
@@ -121,7 +119,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
         [TestMethod]
         public void TestVehiecleInfoExtraction()
         {
-            FiscalEntityDataModel testFiscalEntity = FiscalEntityControllerTests.GetTestFiscalEntityDataModel( FiscalEntityTypes.WithVehiecles);
+            var testFiscalEntity = FiscalEntityControllerTests.GetTestFiscalEntityDataModel( FiscalEntityTypes.WithVehiecles);
 
             using ( WebScraper )
             {
@@ -134,7 +132,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
 
             Assert.AreEqual( 1 , testFiscalEntity.Vehiecles.Count );
 
-            VehiecleDataModel vehiecle = testFiscalEntity.Vehiecles.Single();
+            var vehiecle = testFiscalEntity.Vehiecles.Single();
 
             Assert.AreEqual( "Hyundai" , vehiecle.Brand , true );
 
@@ -152,7 +150,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
         [TestMethod]
         public void TestRealEstateInfoExtraction()
         {
-            FiscalEntityDataModel testFiscalEntity = FiscalEntityControllerTests.GetTestFiscalEntityDataModel(FiscalEntityTypes.WithRealEstates);
+            var testFiscalEntity = FiscalEntityControllerTests.GetTestFiscalEntityDataModel(FiscalEntityTypes.WithRealEstates);
 
             using ( WebScraper )
             {
@@ -165,7 +163,7 @@ namespace JARVIS.TestFramework.Data.DataAcess.Extractors
 
             Assert.AreEqual( 1 , testFiscalEntity.RealEstates.Count );
 
-            RealEstateDataModel realEstateModel = testFiscalEntity.RealEstates.Single();
+            var realEstateModel = testFiscalEntity.RealEstates.Single();
 
             Assert.AreEqual( "U-3854-R" , realEstateModel.FullArticle , true );
 

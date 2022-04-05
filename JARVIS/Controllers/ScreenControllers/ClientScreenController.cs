@@ -1,10 +1,10 @@
 ﻿using System.Windows.Input;
 
 using GalaSoft.MvvmLight.CommandWpf;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Controllers.ModelControllers;
+using Jarvis.Data.Contract;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 
 namespace Jarvis.Controllers.ScreenControllers
 {
@@ -25,7 +25,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void UpdateAggregateAction()
         {
-            if ( ClientController.GetAggregateSelection( DataModelController.UnitOfWork.Aggregates.GetAll() , out AggregateDataModel selectedAggregateDataModel ) )
+            if ( ClientController.GetAggregateSelection( DataModelController.UnitOfWork.Aggregates.GetAll() , out var selectedAggregateDataModel ) )
             {
                 (Entity as ClientDataModel).Aggregate = selectedAggregateDataModel;
             }

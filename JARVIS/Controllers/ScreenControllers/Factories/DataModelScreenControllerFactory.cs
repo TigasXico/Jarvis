@@ -1,8 +1,8 @@
-﻿using Jarvis.Controllers.ModelControllers;
+﻿using Jarvis.Controllers.Contract;
+using Jarvis.Controllers.ModelControllers;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 
-namespace Jarvis.Controllers.ScreenControllers
+namespace Jarvis.Controllers.ScreenControllers.Factories
 {
     internal class DataModelScreenControllerFactory
     {

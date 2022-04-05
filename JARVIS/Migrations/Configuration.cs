@@ -1,15 +1,17 @@
-﻿namespace Jarvis.Migrations
+﻿using Jarvis.Data.DataAccess.Database;
+
+namespace Jarvis.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Jarvis.DataAccess.Database.JarvisContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<JarvisContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Jarvis.DataAccess.Database.JarvisContext context)
+        protected override void Seed(JarvisContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -2,7 +2,7 @@
 using System.Windows.Input;
 
 using GalaSoft.MvvmLight.Command;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Controllers.ModelControllers;
 using Jarvis.Data.DataModels;
 using Jarvis.Services;
@@ -65,7 +65,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void UpdateCustomerGroupAction()
         {
-            if ( FiscalEntityController.GetCustomerGroupSelection( DataModelController.UnitOfWork.CustomerGroups.GetAll() , out CustomerGroupDataModel selectedCustomerGroup ) )
+            if ( FiscalEntityController.GetCustomerGroupSelection( DataModelController.UnitOfWork.CustomerGroups.GetAll() , out var selectedCustomerGroup ) )
             {
                 Entity.CustomerGroup = selectedCustomerGroup;
 
@@ -83,7 +83,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void ShowTransactionsHistoryAction()
         {
-            TransactionHistoryScreenController screenController = new TransactionHistoryScreenController(Entity);
+            var screenController = new TransactionHistoryScreenController(Entity);
 
             WindowService.ShowWindowForController( screenController , "Histórico de pagamentos" );
         }

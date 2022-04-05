@@ -27,7 +27,7 @@ namespace ScrapySharp.Html.Forms
 
         private void Initialize()
         {
-            AgilityNodeParser nodeParser = new AgilityNodeParser( html );
+            var nodeParser = new AgilityNodeParser( html );
             ParseAction( nodeParser );
             ParseMethod( nodeParser );
 
@@ -42,7 +42,7 @@ namespace ScrapySharp.Html.Forms
 
         private void ParseMethod<T>( IHtmlNodeParser<T> nodeParser )
         {
-            string value = nodeParser.GetAttributeValue( "method" );
+            var value = nodeParser.GetAttributeValue( "method" );
 
             if ( !string.IsNullOrEmpty( value ) && value.Equals( "get" ) )
             {
@@ -61,7 +61,7 @@ namespace ScrapySharp.Html.Forms
 
         internal static List<FormField> ParseFormFields<T>( IHtmlNodeParser<T> node )
         {
-            IEnumerable<FormField> inputs = from input in node.CssSelect( "input" )
+            var inputs = from input in node.CssSelect( "input" )
                                             let value = input.GetAttributeValue( "value" )
                                             let type = input.GetAttributeValue( "type" )
                                             where type != "checkbox" && type != "radio"
@@ -71,7 +71,7 @@ namespace ScrapySharp.Html.Forms
                                                 Value = string.IsNullOrEmpty( value ) ? input.InnerText : value
                                             };
 
-            IEnumerable<FormField> checkboxes = from input in node.CssSelect( "input[type=checkbox]" )
+            var checkboxes = from input in node.CssSelect( "input[type=checkbox]" )
                                                 let value = input.GetAttributeValue( "value" )
                                                 where input.Attributes.AllKeys.Contains( "checked" )
                                                 select new FormField
@@ -80,7 +80,7 @@ namespace ScrapySharp.Html.Forms
                                                     Value = string.IsNullOrEmpty( value ) ? input.InnerText : value
                                                 };
 
-            IEnumerable<FormField> radios = from input in node.CssSelect( "input[type=radio]" )
+            var radios = from input in node.CssSelect( "input[type=radio]" )
                                             let value = input.GetAttributeValue( "value" )
                                             where input.Attributes.AllKeys.Contains( "checked" )
                                             select new FormField
@@ -89,7 +89,7 @@ namespace ScrapySharp.Html.Forms
                                                 Value = string.IsNullOrEmpty( value ) ? input.InnerText : value
                                             };
 
-            IEnumerable<FormField> selects = from @select in node.CssSelect( "select" )
+            var selects = from @select in node.CssSelect( "select" )
                                              let name = @select.GetAttributeValue( "name" )
                                              let option =
                                                  @select.CssSelect( "option" ).FirstOrDefault( o => o.Attributes["selected"] != null ) ??
@@ -111,10 +111,10 @@ namespace ScrapySharp.Html.Forms
 
         public string SerializeFormFields()
         {
-            StringBuilder builder = new StringBuilder();
-            FormField[] fields = FormFields.ToArray();
+            var builder = new StringBuilder();
+            var fields = FormFields.ToArray();
 
-            for ( int i = 0 ; i < fields.Length ; i++ )
+            for ( var i = 0 ; i < fields.Length ; i++ )
             {
                 if ( string.IsNullOrWhiteSpace( fields[i].Name ) )
                 {
@@ -136,12 +136,12 @@ namespace ScrapySharp.Html.Forms
         {
             get
             {
-                FormField field = FormFields.FirstOrDefault( f => f.Name == key );
+                var field = FormFields.FirstOrDefault( f => f.Name == key );
                 return field?.Value;
             }
             set
             {
-                FormField field = FormFields.FirstOrDefault( f => f.Name == key );
+                var field = FormFields.FirstOrDefault( f => f.Name == key );
                 if ( field != null )
                 {
                     FormFields.Remove( field );
@@ -163,7 +163,7 @@ namespace ScrapySharp.Html.Forms
 
         public WebPage Submit()
         {
-            if ( Uri.TryCreate( Action , UriKind.Absolute , out Uri url ) )
+            if ( Uri.TryCreate( Action , UriKind.Absolute , out var url ) )
             {
                 return browser.NavigateToPage( url , method , SerializeFormFields() );
             }
@@ -184,7 +184,7 @@ namespace ScrapySharp.Html.Forms
 
         public async Task<WebPage> SubmitAsync()
         {
-            if ( Uri.TryCreate( Action , UriKind.Absolute , out Uri url ) )
+            if ( Uri.TryCreate( Action , UriKind.Absolute , out var url ) )
             {
                 return await browser.NavigateToPageAsync( url , method , SerializeFormFields() );
             }

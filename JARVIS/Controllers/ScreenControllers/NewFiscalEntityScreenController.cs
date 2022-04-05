@@ -5,11 +5,10 @@ using System.Linq;
 using System.Windows.Input;
 
 using GalaSoft.MvvmLight.CommandWpf;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Controllers.ModelControllers;
+using Jarvis.Data.Contract.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAcess.Contract;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 
 namespace Jarvis.Controllers.ScreenControllers
@@ -113,9 +112,9 @@ namespace Jarvis.Controllers.ScreenControllers
             {
                 if ( ev.NewItems != null )
                 {
-                    IList newItems = ev.NewItems;
+                    var newItems = ev.NewItems;
 
-                    foreach ( object newItem in newItems )
+                    foreach ( var newItem in newItems )
                     {
                         if ( newItem is INotifyPropertyChanged raiserAdd )
                         {
@@ -126,9 +125,9 @@ namespace Jarvis.Controllers.ScreenControllers
 
                 if ( ev.OldItems != null )
                 {
-                    IList oldItems = ev.OldItems;
+                    var oldItems = ev.OldItems;
 
-                    foreach ( object oldItem in oldItems )
+                    foreach ( var oldItem in oldItems )
                     {
                         if ( oldItem is INotifyPropertyChanged raiserRemove )
                         {
@@ -142,7 +141,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void UpdateAggregateAction()
         {
-            if ( ClientController.GetAggregateSelection( unitOfWork.Aggregates.GetAll() , out AggregateDataModel selectedAggregateDataModel ) )
+            if ( ClientController.GetAggregateSelection( unitOfWork.Aggregates.GetAll() , out var selectedAggregateDataModel ) )
             {
                 SelectedAggregate = selectedAggregateDataModel;
             }
@@ -150,7 +149,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void UpdateCustomerGroupAction()
         {
-            if(FiscalEntityController.GetCustomerGroupSelection( unitOfWork.CustomerGroups.GetAll() , out CustomerGroupDataModel selectedCustomerGroup ) )
+            if(FiscalEntityController.GetCustomerGroupSelection( unitOfWork.CustomerGroups.GetAll() , out var selectedCustomerGroup ) )
             {
                 SelectedCustomerGroup = selectedCustomerGroup;
             }

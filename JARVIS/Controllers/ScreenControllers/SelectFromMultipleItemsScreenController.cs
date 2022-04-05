@@ -6,8 +6,7 @@ using System.Linq;
 using System.Windows.Data;
 
 using GalaSoft.MvvmLight.CommandWpf;
-
-using Jarvis.Interfaces;
+using Jarvis.Data.Contract;
 using Jarvis.Services;
 using Jarvis.Utils.HelperClasses;
 

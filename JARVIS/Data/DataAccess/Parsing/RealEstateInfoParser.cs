@@ -1,19 +1,15 @@
-﻿using HtmlAgilityPack;
-
-using Jarvis.Data.DataModels;
-using Jarvis.Services;
-
-using Newtonsoft.Json;
-
-using ScrapySharp.Extensions;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using Jarvis.Data.DataModels;
+using Jarvis.Services;
+using Newtonsoft.Json;
+using ScrapySharp.Extensions;
 
-namespace Jarvis.DataAccess.Parsers
+namespace Jarvis.Data.DataAccess.Parsing
 {
     public static class RealEstateInfoParser
     {
@@ -28,29 +24,28 @@ namespace Jarvis.DataAccess.Parsers
         {
             try
             {
-                HtmlNode scriptWithRealEstateInfo = contactInfoAsHtml.CssSelect( "script" ).Last();
+                var scriptWithRealEstateInfo = contactInfoAsHtml.CssSelect( "script" ).Last();
 
-                Match match = Regex.Match( scriptWithRealEstateInfo.InnerText , RealEstateExtractionRegEx );
+                var match = Regex.Match( scriptWithRealEstateInfo.InnerText , RealEstateExtractionRegEx );
 
-                string content = match.Groups["Content"].Value;
+                var content = match.Groups["Content"].Value;
 
-                List<Dictionary<string , string>> listOfRealEstates = JsonConvert.DeserializeObject<List<Dictionary<string , string>>>( content );
+                var listOfRealEstates = JsonConvert.DeserializeObject<List<Dictionary<string , string>>>( content );
 
                 if ( listOfRealEstates != null )
                 {
                     lock ( fiscalEntity.updatingCollectionsLock )
                     {
-
                         fiscalEntity.RealEstates.Clear();
 
-                        foreach ( Dictionary<string , string> realEstate in listOfRealEstates )
+                        foreach ( var realEstate in listOfRealEstates )
                         {
-                            RealEstateDataModel currentRealEstate = new RealEstateDataModel()
+                            var currentRealEstate = new RealEstateDataModel()
                             {
                                 Location = realEstate["loc"] ,
                                 FullArticle = realEstate["artM"] ,
                                 Part = realEstate["qP"] ,
-                                MatrixYear = (int.TryParse( realEstate["ano"] , out int result ) ? result : (( int? ) (null))) ,
+                                MatrixYear = (int.TryParse( realEstate["ano"] , out var result ) ? result : (( int? ) (null))) ,
                                 InitialValue = realEstate["vIni"] ,
                                 CurrentValue = realEstate["val"] ,
                             };

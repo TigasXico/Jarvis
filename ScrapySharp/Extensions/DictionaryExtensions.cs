@@ -16,7 +16,7 @@ namespace ScrapySharp.Extensions
                 return false;
             }
 
-            HtmlAttribute key = dictionary.FirstOrDefault(k => k.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var key = dictionary.FirstOrDefault(k => k.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (key == null)
             {
                 return false;
@@ -32,7 +32,7 @@ namespace ScrapySharp.Extensions
                 return null;
             }
 
-            HtmlAttribute key = dictionary.FirstOrDefault(k => k.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var key = dictionary.FirstOrDefault(k => k.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (key == null)
             {
                 return null;
@@ -48,7 +48,7 @@ namespace ScrapySharp.Extensions
                 return false;
             }
 
-            string key = dictionary.AllKeys.FirstOrDefault(k => k.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var key = dictionary.AllKeys.FirstOrDefault(k => k.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (key == null)
             {
                 return false;
@@ -64,7 +64,7 @@ namespace ScrapySharp.Extensions
                 return null;
             }
 
-            string key = dictionary.AllKeys.FirstOrDefault(k => k.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var key = dictionary.AllKeys.FirstOrDefault(k => k.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (key == null)
             {
                 return null;
@@ -80,7 +80,7 @@ namespace ScrapySharp.Extensions
                 return null;
             }
 
-            string key = dictionary.Keys.FirstOrDefault(k => k.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var key = dictionary.Keys.FirstOrDefault(k => k.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (key == null)
             {
                 return null;

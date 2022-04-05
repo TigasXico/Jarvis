@@ -1,9 +1,7 @@
-﻿
-using Jarvis.DataAccess.WebScraping;
+﻿using Jarvis.Data.Contract;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 
-namespace Jarvis.DataAccess.WebScrapping
+namespace Jarvis.Data.DataAccess.Scraping
 {
     public class FinancesWebScraperFactory : WebScraperFactory<FiscalEntityDataModel>
     {

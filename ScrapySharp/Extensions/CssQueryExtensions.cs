@@ -16,19 +16,19 @@ namespace ScrapySharp.Extensions
 
         public static IEnumerable<HtmlNode> CssSelect( this HtmlNode node , string expression )
         {
-            CssSelectorTokenizer tokenizer = new CssSelectorTokenizer();
-            Token[] tokens = tokenizer.Tokenize( expression );
-            CssSelectorExecutor<HtmlNode> executor = new CssSelectorExecutor<HtmlNode>( new List<HtmlNode> { node } , tokens.ToList() , new AgilityNavigationProvider() );
+            var tokenizer = new CssSelectorTokenizer();
+            var tokens = tokenizer.Tokenize( expression );
+            var executor = new CssSelectorExecutor<HtmlNode>( new List<HtmlNode> { node } , tokens.ToList() , new AgilityNavigationProvider() );
 
             return executor.GetElements();
         }
 
         public static IEnumerable<HtmlNode> CssSelect( this HtmlNode node , string[] expressions )
         {
-            List<HtmlNode> elements = new List<HtmlNode>();
-            foreach ( string expression in expressions )
+            var elements = new List<HtmlNode>();
+            foreach ( var expression in expressions )
             {
-                List<HtmlNode> matchingElements = node.CssSelect( expression ).ToList();
+                var matchingElements = node.CssSelect( expression ).ToList();
 
                 // Use a union to remove duplicates.
                 elements = elements.Union( matchingElements ).ToList();
@@ -39,15 +39,15 @@ namespace ScrapySharp.Extensions
 
         public static IEnumerable<HtmlNode> CssSelectAncestors( this IEnumerable<HtmlNode> nodes , string expression )
         {
-            HtmlNode[] htmlNodes = nodes.SelectMany( node => CssSelectAncestors( node , expression ) ).ToArray();
+            var htmlNodes = nodes.SelectMany( node => CssSelectAncestors( node , expression ) ).ToArray();
             return htmlNodes.Distinct();
         }
 
         public static IEnumerable<HtmlNode> CssSelectAncestors( this HtmlNode node , string expression )
         {
-            CssSelectorTokenizer tokenizer = new CssSelectorTokenizer();
-            Token[] tokens = tokenizer.Tokenize( expression );
-            CssSelectorExecutor<HtmlNode> executor = new CssSelectorExecutor<HtmlNode>( new List<HtmlNode> { node } , tokens.ToList() , new AgilityNavigationProvider() )
+            var tokenizer = new CssSelectorTokenizer();
+            var tokens = tokenizer.Tokenize( expression );
+            var executor = new CssSelectorExecutor<HtmlNode>( new List<HtmlNode> { node } , tokens.ToList() , new AgilityNavigationProvider() )
             {
                 MatchAncestors = true
             };

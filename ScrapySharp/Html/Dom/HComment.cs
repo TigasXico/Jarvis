@@ -4,7 +4,7 @@ namespace ScrapySharp.Html.Dom
     {
         public override string GetOuterHtml(HtmlGenerationStyle generationStyle = HtmlGenerationStyle.None)
         {
-            return string.Format("<!--{0}-->", innerText);
+            return $"<!--{innerText}-->";
         }
     }
 }

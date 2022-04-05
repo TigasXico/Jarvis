@@ -38,7 +38,7 @@ namespace ScrapySharp.Network
         public string GetTextContent()
         {
             content.Position = 0;
-            using ( StreamReader reader = new StreamReader( content ) )
+            using ( var reader = new StreamReader( content ) )
             {
                 return reader.ReadToEnd();
             }

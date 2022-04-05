@@ -10,7 +10,7 @@ namespace ScrapySharp.Extensions
     {
         public static IEnumerable<HElement> CssSelect(this HDocument doc, string expression)
         {
-            HElement hElement = new HElement
+            var hElement = new HElement
                 {
                     Children = doc.Children
                 };
@@ -40,9 +40,9 @@ namespace ScrapySharp.Extensions
                 return new HElement[] { };
             }
 
-            CssSelectorTokenizer tokenizer = new CssSelectorTokenizer();
-            Token[] tokens = tokenizer.Tokenize(expression);
-            CssSelectorExecutor<HElement> executor = new CssSelectorExecutor<HElement>( new List<HElement> { node } , tokens.ToList() , new HElementNavigationProvider() )
+            var tokenizer = new CssSelectorTokenizer();
+            var tokens = tokenizer.Tokenize(expression);
+            var executor = new CssSelectorExecutor<HElement>( new List<HElement> { node } , tokens.ToList() , new HElementNavigationProvider() )
             {
                 MatchAncestors = true
             };
@@ -57,9 +57,9 @@ namespace ScrapySharp.Extensions
                 return new HElement[] { };
             }
 
-            CssSelectorTokenizer tokenizer = new CssSelectorTokenizer();
-            Token[] tokens = tokenizer.Tokenize(expression);
-            CssSelectorExecutor<HElement> executor = new CssSelectorExecutor<HElement>(new List<HElement> { node }, tokens.ToList(), new HElementNavigationProvider());
+            var tokenizer = new CssSelectorTokenizer();
+            var tokens = tokenizer.Tokenize(expression);
+            var executor = new CssSelectorExecutor<HElement>(new List<HElement> { node }, tokens.ToList(), new HElementNavigationProvider());
 
             return executor.GetElements();
         }

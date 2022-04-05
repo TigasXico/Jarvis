@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-
-using Jarvis.Interfaces;
+using Jarvis.Data.Contract;
 
 namespace Jarvis.Data.DataModels
 {
@@ -247,7 +246,7 @@ namespace Jarvis.Data.DataModels
 
         public override string ToString()
         {
-            StringBuilder description = new StringBuilder();
+            var description = new StringBuilder();
             description.AppendLine( $"Nome completo: {Name}" );
             description.AppendLine( $"NIF: {FiscalNumber}" );
             return description.ToString();

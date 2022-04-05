@@ -9,7 +9,7 @@ namespace ScrapySharp.Extensions
 
         public static Uri Combine(this Uri uri, string path)
         {
-            string url = uri.ToString();
+            var url = uri.ToString();
             return CombineUrl(url, path);
         }
 
@@ -22,11 +22,11 @@ namespace ScrapySharp.Extensions
 
             if (path.StartsWith("/"))
             {
-                Match match = basePathRegex.Match(url);
+                var match = basePathRegex.Match(url);
                 if (match.Success)
                 {
-                    string scheme = match.Groups["scheme"].Value;
-                    string site = match.Groups["site"].Value;
+                    var scheme = match.Groups["scheme"].Value;
+                    var site = match.Groups["site"].Value;
 
                     return new Uri(scheme + site + path);
                 }

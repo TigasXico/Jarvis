@@ -1,10 +1,7 @@
-﻿
-using Jarvis.Data.Contract.Repositories;
-using Jarvis.Data.DataAccess.Repositories;
-using Jarvis.DataAccess.Database;
-using Jarvis.DataAcess.Contract;
+﻿using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Database;
 
-namespace Jarvis.DataAccess.Repositories
+namespace Jarvis.Data.DataAccess.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -80,7 +77,7 @@ namespace Jarvis.DataAccess.Repositories
 
         public int Complete()
         {
-            int updatedRecords = context.SaveChanges();
+            var updatedRecords = context.SaveChanges();
 
             return updatedRecords;
         }

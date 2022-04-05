@@ -21,7 +21,7 @@ namespace ScrapySharp.Html.Parsing
 
             while (!reader.End)
             {
-                Word w = reader.ReadWord();
+                var w = reader.ReadWord();
                 words.Add(w);
             }
         }
@@ -30,7 +30,7 @@ namespace ScrapySharp.Html.Parsing
 
         public TagDeclaration ReadTagDeclaration()
         {
-            Word w = ReadWord();
+            var w = ReadWord();
             if (w == null)
             {
                 return null;
@@ -51,7 +51,7 @@ namespace ScrapySharp.Html.Parsing
                     }
                 }
 
-                TagDeclaration element = new TagDeclaration
+                var element = new TagDeclaration
                 {
                     Words = new List<Word> {w},
                     Attributes = new NameValueCollection()
@@ -79,7 +79,7 @@ namespace ScrapySharp.Html.Parsing
                         break;
                     }
 
-                    string attributeName = w.Value;
+                    var attributeName = w.Value;
                     w = ReadWord();
                     element.Words.Add(w);
                     if (IsTagDeclarationEnd(w))
@@ -120,8 +120,8 @@ namespace ScrapySharp.Html.Parsing
 
         private TagDeclaration ReadComment(Word word)
         {
-            List<Word> wordList = new List<Word>();
-            Word w = word;
+            var wordList = new List<Word>();
+            var w = word;
 
             wordList.Add(w);
 
@@ -183,8 +183,8 @@ namespace ScrapySharp.Html.Parsing
 
         private TagDeclaration ReadDoctype(Word word)
         {
-            List<Word> wordList = new List<Word>();
-            Word w = word;
+            var wordList = new List<Word>();
+            var w = word;
 
             wordList.Add(w);
 
@@ -214,8 +214,8 @@ namespace ScrapySharp.Html.Parsing
 
         private TagDeclaration ReadTextElement(Word word)
         {
-            List<Word> wordList = new List<Word>();
-            Word w = word;
+            var wordList = new List<Word>();
+            var w = word;
 
             wordList.Add(w);
 
@@ -264,7 +264,7 @@ namespace ScrapySharp.Html.Parsing
             {
                 while (!End)
                 {
-                    Word w = words[position++];
+                    var w = words[position++];
                     if (!w.IsWhiteSpace)
                     {
                         return w;

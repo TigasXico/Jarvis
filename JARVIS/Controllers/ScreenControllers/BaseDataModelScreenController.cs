@@ -4,9 +4,9 @@ using System.Dynamic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-
+using Jarvis.Controllers.Contract;
 using Jarvis.Controllers.ModelControllers;
-using Jarvis.Interfaces;
+using Jarvis.Data.Contract;
 
 namespace Jarvis.Controllers.ScreenControllers
 {
@@ -87,8 +87,8 @@ namespace Jarvis.Controllers.ScreenControllers
 
         public override bool TryGetMember( GetMemberBinder binder , out object result )
         {
-            string propertyName = binder.Name;
-            PropertyInfo property =
+            var propertyName = binder.Name;
+            var property =
               WrappedObject?.GetType().GetProperty( propertyName );
 
             if ( property == null || property.CanRead == false )
@@ -103,8 +103,8 @@ namespace Jarvis.Controllers.ScreenControllers
 
         public override bool TrySetMember( SetMemberBinder binder , object value )
         {
-            string propertyName = binder.Name;
-            PropertyInfo property =
+            var propertyName = binder.Name;
+            var property =
               WrappedObject?.GetType().GetProperty( propertyName );
 
             if ( property == null || property.CanWrite == false )

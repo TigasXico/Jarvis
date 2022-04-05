@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
+using Jarvis.Data.Contract;
 
-using Jarvis.Controllers.ModelControllers;
-
-namespace Jarvis.Interfaces
+namespace Jarvis.Controllers.Contract
 {
     public interface IDataModelScreenController<T> :  INotifyPropertyChanged where T : IDataModel
     {

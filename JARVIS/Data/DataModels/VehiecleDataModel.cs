@@ -101,7 +101,7 @@ namespace Jarvis.Data.DataModels
 
         public override string ToString()
         {
-            StringBuilder vehiecleDescription = new StringBuilder();
+            var vehiecleDescription = new StringBuilder();
             vehiecleDescription.AppendLine( $"Matrícula: {LicensePlate}" );
             vehiecleDescription.AppendLine( $"Marca: {Brand}" );
             vehiecleDescription.AppendLine( $"Modelo: {Model}" );

@@ -1,6 +1,7 @@
-﻿using Jarvis.DataAcess.Contract;
+﻿using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
 
-namespace Jarvis.Interfaces
+namespace Jarvis.Controllers.Contract
 {
     public interface IDataModelController<T> where T : IDataModel
     {

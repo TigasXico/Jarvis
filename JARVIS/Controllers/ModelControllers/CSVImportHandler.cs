@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-
-using Jarvis.Controllers.ModelControllers;
 using Jarvis.Controllers.ModelControllers.Factories;
-using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Repositories;
-using Jarvis.DataAcess.Contract;
-using Jarvis.Interfaces;
 using Jarvis.Controllers.ScreenControllers;
+using Jarvis.Data.Contract;
+using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Repositories;
+using Jarvis.Data.DataModels;
 using Jarvis.Services;
 using Jarvis.Utils.HelperClasses;
-
 using Microsoft.VisualBasic.FileIO;
 
-namespace Jarvis.DataHandlers.Handlers
+namespace Jarvis.Controllers.ModelControllers
 {
     public class CSVImportHandler
     {
@@ -23,17 +20,17 @@ namespace Jarvis.DataHandlers.Handlers
 
         internal static List<ProcessingResult> ProcessImport( string pathToCsv , BackgroundWorker worker )
         {
-            List<ProcessingResult> processingResults = new List<ProcessingResult>();
+            var processingResults = new List<ProcessingResult>();
 
             try
             {
-                List<IFiscalEntity> entitiesToProcess = new List<IFiscalEntity>();
+                var entitiesToProcess = new List<IFiscalEntity>();
 
-                List<string> fileErrors = new List<string>();
+                var fileErrors = new List<string>();
 
                 worker?.ReportProgress( -1 , $"A processar o ficheiro indicado" );
 
-                using ( TextFieldParser csvParser = new TextFieldParser( pathToCsv ) )
+                using ( var csvParser = new TextFieldParser( pathToCsv ) )
                 {
                     csvParser.CommentTokens = new string[] { "#" };
                     csvParser.SetDelimiters( new string[] { "," } );
@@ -60,7 +57,7 @@ namespace Jarvis.DataHandlers.Handlers
                             continue;
                         }
 
-                        string fiscalNumber = fields[0];
+                        var fiscalNumber = fields[0];
                         if ( string.IsNullOrEmpty( fiscalNumber ) )
                         {
                             fileErrors.Add( $"Linha #{csvParser.LineNumber} - Campo de N.I.F. está vazio" );
@@ -68,7 +65,7 @@ namespace Jarvis.DataHandlers.Handlers
                         }
 
 
-                        string password = fields[1];
+                        var password = fields[1];
                         if ( string.IsNullOrEmpty( password ) )
                         {
                             fileErrors.Add( $"Linha #{csvParser.LineNumber} - Campo de password está vazio" );
@@ -76,7 +73,7 @@ namespace Jarvis.DataHandlers.Handlers
                         }
 
                         //Generate entity
-                        FiscalEntityGenerationResult errorType = FiscalEntityController.ResolveFiscalInfoToEntity( fiscalNumber , password , out FiscalEntityDataModel generatedEntity );
+                        var errorType = FiscalEntityController.ResolveFiscalInfoToEntity( fiscalNumber , password , out var generatedEntity );
 
                         if ( errorType == FiscalEntityGenerationResult.InvalidFiscalNumber )
                         {
@@ -95,10 +92,10 @@ namespace Jarvis.DataHandlers.Handlers
 
                     if ( fileErrors.Count != 0 )
                     {
-                        StringBuilder errorMessage = new StringBuilder();
+                        var errorMessage = new StringBuilder();
                         errorMessage.AppendLine( "Erros na importação do ficheiro disponibilizado:" );
                         errorMessage.AppendLine();
-                        foreach ( string error in fileErrors )
+                        foreach ( var error in fileErrors )
                         {
                             errorMessage.AppendLine( $"  {error}" );
                         }
@@ -108,24 +105,24 @@ namespace Jarvis.DataHandlers.Handlers
                     }
                 }
 
-                int counter = 0;
-                int totalToProcess = entitiesToProcess.Count;
+                var counter = 0;
+                var totalToProcess = entitiesToProcess.Count;
 
                 using ( IUnitOfWork unitForImport = new UnitOfWork() )
                 {
                     foreach ( FiscalEntityDataModel entityToProcess in entitiesToProcess )
                     {
-                        int percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess);
+                        var percentage = ModuleUtils.CalculatePercentage( ++counter , totalToProcess);
 
                         //report progress here, not on the controller , for total loading percentage
                         worker?.ReportProgress( percentage , $"A processar entidade {counter}/{totalToProcess}" );
 
                         //Get controller for generated entity
                         //update is disabled for the this operation
-                        IUpdatableDataModelController<FiscalEntityDataModel> controller = DataModelControllerFactory.GetControllerForEntity( entityToProcess , worker, unitForImport );
+                        var controller = DataModelControllerFactory.GetControllerForEntity( entityToProcess , worker, unitForImport );
 
                         //Get all info of entity
-                        OperationResult result = controller.UpdateEntityInfo(true);
+                        var result = controller.UpdateEntityInfo(true);
 
                         //Add processment result
                         processingResults.Add( new ProcessingResult( entityToProcess , result ) );

@@ -1,10 +1,9 @@
 ﻿using System;
-
 using HtmlAgilityPack;
-
+using Jarvis.Controllers.Contract;
 using ScrapySharp.Network;
 
-namespace Jarvis.Interfaces
+namespace Jarvis.Data.Contract
 {
     public interface IWebScraper<T> : IDisposable
     {

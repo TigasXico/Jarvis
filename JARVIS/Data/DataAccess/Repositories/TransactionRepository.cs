@@ -1,8 +1,8 @@
 ﻿using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Database;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Database;
 
-namespace Jarvis.DataAccess.Repositories
+namespace Jarvis.Data.DataAccess.Repositories
 {
     internal class TransactionRepository : Repository<TransactionDataModel> , ITransactionRepository
     {

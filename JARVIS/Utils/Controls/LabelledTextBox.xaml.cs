@@ -51,7 +51,7 @@ namespace Jarvis.Utils.Controls
         {
             InitializeComponent();
             Root.DataContext = this;
-            DependencyPropertyDescriptor dpd = DependencyPropertyDescriptor.FromProperty( ReadOnlyProperty , typeof( LabelledTextBox ) );
+            var dpd = DependencyPropertyDescriptor.FromProperty( ReadOnlyProperty , typeof( LabelledTextBox ) );
             dpd.AddValueChanged( this , ReadOnly_PropertyChanged );
         }
 

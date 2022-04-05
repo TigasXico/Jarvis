@@ -1,8 +1,8 @@
-﻿using Jarvis.Data.DataModels;
-using Jarvis.DataAccess.Database;
-using Jarvis.DataAcess.Contract;
+﻿using Jarvis.Data.Contract.Repositories;
+using Jarvis.Data.DataAccess.Database;
+using Jarvis.Data.DataModels;
 
-namespace Jarvis.DataAccess.Repositories
+namespace Jarvis.Data.DataAccess.Repositories
 {
     internal class ContactsRepository : Repository<ContactDataModel>, IContactsRepository
     {

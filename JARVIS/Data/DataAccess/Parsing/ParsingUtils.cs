@@ -1,9 +1,8 @@
-﻿using HtmlAgilityPack;
-
+﻿using System.Net;
+using HtmlAgilityPack;
 using ScrapySharp.Extensions;
 
-
-namespace Jarvis.DataAccess.Parsers
+namespace Jarvis.Data.DataAccess.Parsing
 {
     public abstract class ParsingUtils
     {
@@ -11,7 +10,7 @@ namespace Jarvis.DataAccess.Parsers
         {
             if ( index >= 0 && index < array.Length )
             {
-                HtmlNode node = array[index];
+                var node = array[index];
                 return ClearString( node.InnerText );
             }
             else
@@ -22,9 +21,12 @@ namespace Jarvis.DataAccess.Parsers
 
         protected static string ClearString( string textToClean )
         {
-            string cleanedString = textToClean.Replace( "\\r\\n" , string.Empty );
+            var cleanedString = textToClean.Replace( "\\r\\n" , string.Empty );
             cleanedString = cleanedString.Replace( "\\t" , string.Empty );
             cleanedString = cleanedString.Trim();
+
+            cleanedString = WebUtility.HtmlDecode(cleanedString);
+
             return cleanedString;
         }
 
@@ -32,13 +34,14 @@ namespace Jarvis.DataAccess.Parsers
         {
             attributeValue = null;
 
-            if ( field != null && field != default( HtmlNode ) && field.HasAttributes && field.Attributes.HasKeyIgnoreCase( attributeName ) )
+            if (field == default || !field.HasAttributes || !field.Attributes.HasKeyIgnoreCase(attributeName))
             {
-                attributeValue = field.Attributes.GetIgnoreCase( attributeName );
-                return !string.IsNullOrWhiteSpace( attributeValue );
+                return false;
             }
 
-            return false;
+            attributeValue = field.Attributes.GetIgnoreCase( attributeName );
+
+            return !string.IsNullOrWhiteSpace( attributeValue );
 
         }
     }

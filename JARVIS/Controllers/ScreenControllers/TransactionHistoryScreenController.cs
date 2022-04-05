@@ -71,7 +71,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void AddTransactionAction()
         {
-            EditTransactionScreenController newTransactionScreenController = new EditTransactionScreenController()
+            var newTransactionScreenController = new EditTransactionScreenController()
             {
                 Transaction = new TransactionDataModel()
                 {
@@ -92,7 +92,7 @@ namespace Jarvis.Controllers.ScreenControllers
 
         private void EditTransactionAction()
         {
-            EditTransactionScreenController newTransactionScreenController = new EditTransactionScreenController()
+            var newTransactionScreenController = new EditTransactionScreenController()
             {
                 Transaction = SelectedTransaction,
                 DisplayControlButtons = true

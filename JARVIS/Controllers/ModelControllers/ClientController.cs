@@ -4,9 +4,8 @@ using System.ComponentModel;
 using System.Configuration;
 
 using Jarvis.Controllers.ScreenControllers;
+using Jarvis.Data.Contract.Repositories;
 using Jarvis.Data.DataModels;
-using Jarvis.DataAcess.Contract;
-using Jarvis.DataHandlers.Handlers;
 using Jarvis.Services;
 
 namespace Jarvis.Controllers.ModelControllers
@@ -24,7 +23,7 @@ namespace Jarvis.Controllers.ModelControllers
 
         public ClientController( ClientDataModel client , BackgroundWorker worker , IUnitOfWork unitOfWork = null ) : base( worker , unitOfWork )
         {
-            ClientDataModel obtainedClientFromDatabase = UnitOfWork.Clients.GetByFiscalNumber( client.FiscalNumber );
+            var obtainedClientFromDatabase = UnitOfWork.Clients.GetByFiscalNumber( client.FiscalNumber );
 
             if ( obtainedClientFromDatabase != default( ClientDataModel ) )
             {
@@ -61,7 +60,7 @@ namespace Jarvis.Controllers.ModelControllers
             selectedAggregate = null;
 
             //Open window to update aggregate
-            SelectAggregateScreenController screenController =
+            var screenController =
                 new SelectAggregateScreenController( existingAggregates )
                 {
                     DisplayControlButtons = true ,

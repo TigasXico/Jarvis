@@ -2,10 +2,10 @@
 using System.Configuration;
 
 using HtmlAgilityPack;
-
+using Jarvis.Controllers.Contract;
+using Jarvis.Data.Contract;
 using Jarvis.Data.DataAccess.Parsing;
 using Jarvis.Data.DataModels;
-using Jarvis.Interfaces;
 using Jarvis.Services;
 
 using log4net;
@@ -33,7 +33,7 @@ namespace Jarvis.Data.DataAccess.Extractors
         {
             try
             {
-                bool success = financesWebScraper.GetPage( ImiChargeNotesInfoLink , out WebPage page );
+                var success = financesWebScraper.GetPage( ImiChargeNotesInfoLink , out var page );
 
                 logger.Info( $"The entity IMI payments form scrapping was {(success ? string.Empty : "not ") } sucesfull" );
 
@@ -42,39 +42,28 @@ namespace Jarvis.Data.DataAccess.Extractors
                     return OperationResult.Failed;
                 }
 
-                PageWebForm getImiChardeNotesForYearForm = page.FindFormByAttribute( "name" , ImiPaymentInfoFormName );
+                var getImiChardeNotesForYearForm = page.FindFormByAttribute( "name" , ImiPaymentInfoFormName );
 
-                //IEnumerable<string> queriableYears = pageContent.CssSelect( ".body-link" ).Select( item => item.InnerText);
-
-                //foreach ( string year in queriableYears )
-                //{
-
-                string year = DateTime.Now.Year.ToString();
+                var year = DateTime.Now.Year.ToString();
 
                 getImiChardeNotesForYearForm["ano"] = DateTime.Now.AddYears(-1).Year.ToString();
 
                 getImiChardeNotesForYearForm.Action = "/pt/main.jsp";
 
-                WebPage imiChargeNotesForYearPage = getImiChardeNotesForYearForm.Submit();
+                var imiChargeNotesForYearPage = getImiChardeNotesForYearForm.Submit();
 
-                HtmlNode content = imiChargeNotesForYearPage.Html;
+                var content = imiChargeNotesForYearPage.Html;
 
                 success = ImiChargeNotesInfoParser.GetInfoOfImiPaymentOffYear( content , entity );
 
-                logger.Info( $"The entity IMI chate notes parsing for year {year} was {(success ? string.Empty : "not ") } succesfull" );
+                logger.Info( $"The entity IMI charge notes parsing for year {year} was {(success ? string.Empty : "not ") } succesfull" );
 
-                if ( !success )
-                {
-                    return OperationResult.Failed;
-                }
-                //}
-
-                return OperationResult.Success;
+                return success ? OperationResult.Success : OperationResult.Failed;
             }
             catch ( Exception ex )
             {
                 WindowService.ShowException( ex );
-                logger.Fatal( $"The retrieval of the entity IMI payemnt years processing has failed. Details:{Environment.NewLine}" , ex );
+                logger.Fatal( $"The retrieval of the entity IMI payment years processing has failed. Details:{Environment.NewLine}" , ex );
                 return OperationResult.Failed;
             }
         }

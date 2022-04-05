@@ -18,7 +18,7 @@ namespace ScrapySharp.Html.Forms
 
             Attributes = new NameValueCollection();
 
-            foreach ( HtmlAttribute attribute in node.Attributes)
+            foreach ( var attribute in node.Attributes)
             {
                 Attributes.Add(attribute.Name, attribute.Value);
             }

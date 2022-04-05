@@ -20,9 +20,9 @@ namespace ScrapySharp.Html.Dom
 
         public static HDocument Parse(string source)
         {
-            CodeReader codeReader = new CodeReader(source);
-            HtmlDeclarationReader declarationReader = new HtmlDeclarationReader(codeReader);
-            HtmlDomBuilder domBuilder = new HtmlDomBuilder(declarationReader);
+            var codeReader = new CodeReader(source);
+            var declarationReader = new HtmlDeclarationReader(codeReader);
+            var domBuilder = new HtmlDomBuilder(declarationReader);
 
             return new HDocument
                        {
@@ -32,9 +32,9 @@ namespace ScrapySharp.Html.Dom
 
         public string GetOuterHtml(HtmlGenerationStyle generationStyle = HtmlGenerationStyle.None)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            bool selfClosing = !HasChildren && !string.IsNullOrEmpty(innerText);
+            var selfClosing = !HasChildren && !string.IsNullOrEmpty(innerText);
 
             if (!selfClosing)
             {
@@ -45,7 +45,7 @@ namespace ScrapySharp.Html.Dom
 
                 if (HasChildren)
                 {
-                    foreach ( HElement child in Children)
+                    foreach ( var child in Children)
                     {
                         builder.Append(child.GetOuterHtml(generationStyle));
                     }
