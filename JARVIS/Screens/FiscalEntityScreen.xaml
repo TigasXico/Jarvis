@@ -98,7 +98,7 @@
 					</Border.Style>
 
 					<controls:LabelledTextBox Grid.Column="0"
-											  Label="NIF:" 
+											  Label="NIF:  " 
 											  Text="{Binding FiscalNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" 
 											  IsEnabled="True"
 											  ReadOnly="False"
